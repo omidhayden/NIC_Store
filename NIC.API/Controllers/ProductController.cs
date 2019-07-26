@@ -57,7 +57,7 @@ namespace NIC.API.Controllers
             var product = await _repo.GetProduct(id);
             _repo.delete(product);
             await _repo.SaveAll();
-            return RedirectToAction(nameof(GetProducts), null, null);
+            return Ok();
         }
 
     }

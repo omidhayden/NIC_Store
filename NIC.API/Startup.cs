@@ -36,6 +36,9 @@ namespace NIC.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+
+
             IdentityBuilder builder = services.AddIdentityCore<User>(opt => 
             {
                 
@@ -83,11 +86,17 @@ namespace NIC.API
                 opt.SerializerSettings.ReferenceLoopHandling=
                 Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
+            services.AddCors();
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IUserRepository,UserRepository>();
             services.AddScoped<ICartRepository, CartRepository>();
+
+
+
+
+            services.Configure<PhotoSettings>(Configuration.GetSection("PhotoSettings"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -103,8 +112,9 @@ namespace NIC.API
                 app.UseHsts();
             }
             app.UseAuthentication();
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
             app.UseHttpsRedirection();
-
+            
             app.UseMvc(routes => {
                 routes.MapRoute(
                     name: "default",

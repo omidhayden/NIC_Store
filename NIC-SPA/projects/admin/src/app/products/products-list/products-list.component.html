@@ -1,0 +1,36 @@
+<navbar></navbar>
+<div class="admin-content-wrapper">
+    <h2>Products</h2>
+    <h5>
+      Add a new product: <button type="button" class="btn btn-success btn-sm" [routerLink]="['add']" >Add</button>
+
+    </h5>
+    
+    <table class="table table-hover table-sm">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Photos</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor= "let p of products">
+                <th>{{p.id}}</th>
+                <td>{{p.name}}</td>
+                <td>${{p.price}}</td>
+                <td>{{p.photoUrl}}</td>
+                <td>
+                  <div class="product-state">
+                    <button  type="button" class="btn btn-secondary btn-sm">Edit</button>
+                    <button type="button" [routerLink]="['/admin/products/', p.id]" routerLinkActive="router-link-active"  class="btn btn-info btn-sm">Info</button>
+                    <button type="button" (click)="Delete(p.id)" class="btn btn-danger btn-sm">Delete</button>
+                  </div>
+                </td>
+            </tr>
+            
+        </tbody>
+    </table>
+</div>

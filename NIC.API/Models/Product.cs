@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace NIC.API.Models
 {
@@ -12,5 +13,9 @@ namespace NIC.API.Models
         public ICollection<Photo> Photos { get; set; }
         public ICollection<Cart_Items> CartItems { get; set; }
         
+        public Product()
+        {
+            Photos = new Collection<Photo>();
+        }
     }
 }

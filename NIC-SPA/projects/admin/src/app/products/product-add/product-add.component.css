@@ -1,0 +1,19 @@
+form{
+    margin-left: 20px;
+    width: fit-content;
+}
+.example-form {
+    position: relative;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }
+  .input{
+    width: 250px;
+  }
+
+  .input-div{
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }

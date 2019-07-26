@@ -8,7 +8,11 @@
       "sourceRoot": "src",
       "projectType": "application",
       "prefix": "app",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -24,8 +28,13 @@
             ],
             "styles": [
               "src/styles.css"
+
             ],
-            "scripts": [],
+            "scripts": [
+              "node_modules/chart.js/dist/Chart.js",
+              "node_modules/hammerjs/hammer.min.js",
+              "node_modules/alertifyjs/build/alertify.min.js"
+            ],
             "es5BrowserSupport": true
           },
           "configurations": {
@@ -151,7 +160,10 @@
               "projects/client/src/assets"
             ],
             "styles": [
-              "projects/client/src/styles.css"
+              "projects/client/src/styles.css",
+              "projects/admin/src/styles.css",
+              "../node_modules/bootstrap/dist/css/bootstrap.css",
+              "../node_modules/font-awesome/css/font-awesome.css"
             ],
             "scripts": [],
             "es5BrowserSupport": true

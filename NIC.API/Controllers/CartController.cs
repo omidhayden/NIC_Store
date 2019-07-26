@@ -17,7 +17,7 @@ using NIC.API.ViewModels;
 namespace NIC.API.Controllers
 {
     // [Authorize]
-    [Route("api/users/?{username}/cart")]
+    [Route("api/users/{username}/cart")]
     [ApiController]
     public class CartController : ControllerBase
     {

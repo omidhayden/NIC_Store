@@ -1,0 +1,28 @@
+<navbar></navbar>
+<div class="admin-content-wrapper">
+      <h2>Add a new product</h2>
+      <form #registerForm="ngForm" (ngSubmit)="addProduct()">
+          
+            <div class="input-div">
+                  <mat-form-field appearance="standard"  class="input">
+                        <mat-label>Name</mat-label>
+                        <input matInput required  [(ngModel)]="model.name" name="name" placeholder="Placeholder" />
+                        <mat-hint>Add a name for the product</mat-hint>
+                  </mat-form-field>
+            </div>
+            <div class="input-div">
+                  <mat-form-field class="input">
+                        <textarea matInput required [(ngModel)]="model.details" name="details" placeholder="Discription"></textarea>
+                  </mat-form-field>
+            </div>
+            <div class="input-div">
+                  <mat-form-field appearance="standard" class="input">
+                        <mat-label>Price</mat-label>
+                        <input type="number" required [(ngModel)]="model.price" name="price" matInput placeholder="Placeholder" />
+                        <mat-hint>Add a price for the product in US dollar</mat-hint>
+                  </mat-form-field>
+            </div>
+            <button class="btn btn-success" type="submit">Save</button>
+            <button class="btn btn-default" type="button" (click)="cancel()">Cancel</button>
+      </form>
+</div>

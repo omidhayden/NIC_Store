@@ -1,0 +1,18 @@
+<navbar></navbar>
+<div class=" container admin-content-wrapper" *ngIf="product">
+  <h2>Product Information</h2>
+  <mat-tab-group>
+    <mat-tab label="Product">
+        <label class="name">Name</label>
+        <h4>{{product.name}}</h4>
+        <label>Description</label>
+        <p>{{product.details}}</p>
+        <label>Price</label>
+        <p>{{product.price}}</p>
+        
+    </mat-tab>
+    <mat-tab label="Photos">
+      <admin-product-photo></admin-product-photo>
+    </mat-tab>
+  </mat-tab-group>
+</div>

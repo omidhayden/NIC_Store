@@ -1,2 +1,62 @@
-<a routerLink="/admin/dashboard" >Dashboard</a>  | 
-<a routerLink="/admin/products" >Products</a>
+<header class="main-header">
+        <a class="logo">
+            <span class="logo-lg">
+                <b>NIC</b>Store
+            </span>
+        </a>
+        <nav class="navbar navbar-static-top">
+            <a href="" class="sidebar-toggle"> <span class="fa fa-bars"></span></a>
+
+
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown messages-menu">
+                        <a href="">
+                                <span class="fa fa-envelope"></span>
+                        </a>
+                            
+                        
+                        
+                    </li>
+                    <li class="dropdown notifications-menu">
+                        <a href="">
+                                <span class="fa fa-exclamation"></span>
+                        </a>
+                        
+                    </li>
+                    <li class="dropdown user user-menu">
+                        <a href="">
+                                <span class="fa fa-user-edit"></span>
+                        </a>
+                        
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    
+<aside class="main-sidebar">
+    <section class="sidebar">
+        <div class="user-panel">
+                <div class="pull-left image">
+                        <img src="" class="img-circle" alt="User Image">
+                      </div>
+            <div class="pull-left info">
+                <p>Alexander Pierce</p>
+                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+              </div>
+        </div>
+        <ul class="sidebar-menu tree" data-widget="tree">
+                <li class="header">MAIN NAVIGATION</li>
+                <li class="active treeview menu-open">
+                  
+                  <ul class="treeview-menu">
+                    <li><a routerLink = '/admin/dashboard'>Dashboard </a></li>
+                    <li><a routerLink = '/admin/products'>Products </a></li>
+                  </ul>
+                </li>
+        </ul>
+                
+                
+    </section>
+</aside>
