@@ -9,6 +9,7 @@ namespace NIC.API.IRepository
     {
         Task<IEnumerable<Product>> GetProducts ();
         Task<Product> GetProduct (int id);
+    
         void add<T>(T entity) where T:class;
         void delete<T> (T entity) where T:class;
         Task<bool> SaveAll();

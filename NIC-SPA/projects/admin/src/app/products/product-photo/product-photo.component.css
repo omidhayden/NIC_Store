@@ -1,0 +1,38 @@
+.main{
+    margin: auto;
+    margin-top: 5px;
+    padding: 0;
+    display: block;
+    overflow: hidden;
+
+}
+
+mat-card{
+    
+    background-color: #3c8dbc;
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-bottom: 5px;
+}
+.upload{
+    padding: 0;
+    margin: 0;
+    display: contents;
+}
+.upload-box{
+    display: inline-table;
+}
+
+.nv-file-over{
+    border: dotted 3px red;
+}
+
+input[type=file]{
+    color: transparent;
+}
+.text-center{
+    display: inline-flex;
+}
+.upload-input{
+    display: -webkit-box;
+}

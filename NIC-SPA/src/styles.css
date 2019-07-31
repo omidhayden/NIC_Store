@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-@import "../node_modules/bootstrap/dist/css/bootstrap.css";
+@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+@import '../node_modules/bootstrap/dist/css/bootstrap.css';
 @import "../node_modules/font-awesome/css/font-awesome.css";
 @import "../node_modules/@fortawesome/fontawesome-free/css/all.min.css";
 @import '../node_modules/alertifyjs/build/css/alertify.min.css';
@@ -23,4 +24,17 @@ body {
     z-index: 800;
     margin-left: 230px;
     height: -webkit-fill-available;
+}
+@media (min-width: 1200px)
+{
+    .container {
+        max-width: 1211px;
+    }
+    
+}
+.is-active{
+    background-color: #4b646f !important;
+}
+.is-active a{
+    color: white !important;
 }

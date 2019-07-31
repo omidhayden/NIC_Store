@@ -1,3 +1,47 @@
-<a routerLink="/home">Home Link</a><br>
-<a routerLink="/products">Products Link</a><br>
-<a routerLink="/aboutus">about us Link</a>
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button
+    class="navbar-toggler d-lg-none"
+    type="button"
+    data-toggle="collapse"
+    data-target="#collapsibleNavId"
+    aria-controls="collapsibleNavId"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavId">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item active">
+        <a class="nav-link" href="#"
+          >Home <span class="sr-only">(current)</span></a
+        >
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav navbar-right">
+      <li *ngIf="!loggedIn()" class="nav-item">
+        <button mat-raised-button (click)="loginModal()">Login</button>
+      </li>
+      <button *ngIf="loggedIn()" mat-button [matMenuTriggerFor]="beforeMenu">
+        Profile
+      </button>
+      <mat-menu #beforeMenu="matMenu" xPosition="before">
+        <ng-template matMenuContent>
+          <button mat-menu-item>Purchase history</button>
+          <button mat-menu-item>Profile information</button>
+          <button *ngIf="loggedIn()" (click)="logOut()" mat-menu-item>Log out</button>
+        </ng-template>
+      </mat-menu>
+      
+      <li class="nav-item">
+        <a class="nav-link" href="#"
+          ><span matBadge="4" matBadgeOverlap="false">Cart</span></a
+        >
+      </li>
+    </ul>
+  </div>
+</nav>

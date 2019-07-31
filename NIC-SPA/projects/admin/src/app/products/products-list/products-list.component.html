@@ -24,7 +24,7 @@
                 <td>{{p.photoUrl}}</td>
                 <td>
                   <div class="product-state">
-                    <button  type="button" class="btn btn-secondary btn-sm">Edit</button>
+                    
                     <button type="button" [routerLink]="['/admin/products/', p.id]" routerLinkActive="router-link-active"  class="btn btn-info btn-sm">Info</button>
                     <button type="button" (click)="Delete(p.id)" class="btn btn-danger btn-sm">Delete</button>
                   </div>

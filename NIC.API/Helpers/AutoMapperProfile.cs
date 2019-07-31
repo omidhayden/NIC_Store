@@ -14,7 +14,7 @@ namespace NIC.API.Mapper
 
             CreateMap<Product, AddProductViewModel>().ReverseMap();
             CreateMap<Product, ProductToReturnViewModel>().ReverseMap();
-
+            CreateMap<Product, ProductUpdateViewModel>().ReverseMap();
             CreateMap<Photo, AddPhotoViewModel>();
 
 

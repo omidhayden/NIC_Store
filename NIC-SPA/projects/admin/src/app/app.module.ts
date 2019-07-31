@@ -1,3 +1,4 @@
+import { ProductEditComponent } from './products/product-edit/product-edit.component';
 import { ProductAddComponent } from './products/product-add/product-add.component';
 import { AlertifyService } from './../../../../src/app/alertify.service';
 import { ProductService } from './_services/product.service';
@@ -15,7 +16,9 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatTabsModule} from '@angular/material/tabs';
 import { ProductInfoComponent } from './products/product-info/product-info.component';
 import { ProductPhotoComponent } from './products/product-photo/product-photo.component';
-
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { FileUploadModule } from 'ng2-file-upload';
+import {MatCardModule} from '@angular/material/card';
 
 
 
@@ -25,12 +28,11 @@ const providers = [ProductService]
     AppComponent,
     NavbarComponent,
     DashboardComponent,
-
     ProductsListComponent,
     ProductAddComponent,
     ProductInfoComponent,
     ProductPhotoComponent,
-
+    ProductEditComponent
 
   ],
   imports: [
@@ -41,7 +43,10 @@ const providers = [ProductService]
     MatInputModule,
     BrowserModule,
     AdminRoutingModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSlideToggleModule,
+    FileUploadModule,
+    MatCardModule
     
 
   ],

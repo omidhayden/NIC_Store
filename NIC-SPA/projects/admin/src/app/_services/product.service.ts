@@ -8,6 +8,7 @@ import {HttpClient} from '@angular/common/http';
 })
 export class ProductService {
   UrlBase: 'http://localhost:5000';
+  ImageUrl: 'http://localhost:5000/uploads/'
   
   constructor(private http: HttpClient) { }
   
@@ -17,6 +18,9 @@ export class ProductService {
 
   getProduct(id: number){
     return this.http.get('http://localhost:5000/api/product/' +id);
+  }
+  updateProduct(productId:number, product: Product){
+    return this.http.put("http://localhost:5000/api/product/" + productId, product);
   }
 
 

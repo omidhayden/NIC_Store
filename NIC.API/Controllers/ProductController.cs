@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NIC.API.IRepository;
 using NIC.API.Models;
@@ -35,12 +37,13 @@ namespace NIC.API.Controllers
         {
 
             var getProduct = await _repo.GetProduct(id);
-            var productToReturn = _mapper.Map<ProductToReturnViewModel>(getProduct);
-            return Ok(productToReturn);
+            // var productToReturn = _mapper.Map<ProductToReturnViewModel>(getProduct);
+            return Ok(getProduct);
 
         }
 
         [HttpPost("add")]
+        [Authorize]
         public async Task<IActionResult> AddProduct([FromBody] AddProductViewModel addProductVM)
         {
            var mapFromBody =  _mapper.Map<Product>(addProductVM); 
@@ -50,8 +53,23 @@ namespace NIC.API.Controllers
            return CreatedAtAction(nameof(Getproduct),new {id = mapFromBody.Id}, addProductVM);
            
         }
+        [HttpPut("{id}")]
+        [Authorize]
+        public async Task<IActionResult> UpdateProduct(int id, ProductUpdateViewModel productUpdateVM)
+        {
+            Product productFromRepo = await _repo.GetProduct(id);
+            if(productFromRepo == null) return BadRequest("Product not found!");
+
+             var returnProduct = _mapper.Map(productUpdateVM, productFromRepo);
+             if(await _repo.SaveAll()) return Ok(returnProduct);
+
+                throw new Exception($"Updating user {id} failed on save");
+        }
+
+        
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteProduct(int id)
         {
             var product = await _repo.GetProduct(id);

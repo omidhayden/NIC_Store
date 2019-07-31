@@ -92,8 +92,12 @@ namespace NIC.API
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IUserRepository,UserRepository>();
             services.AddScoped<ICartRepository, CartRepository>();
+            services.AddScoped<IPhotoRepository, PhotoRepository>();
 
-
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "./../NIC-SPA";
+            });
 
 
             services.Configure<PhotoSettings>(Configuration.GetSection("PhotoSettings"));
@@ -111,6 +115,8 @@ namespace NIC.API
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseSpaStaticFiles();
+            app.UseStaticFiles();
             app.UseAuthentication();
             app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
             app.UseHttpsRedirection();
@@ -121,6 +127,7 @@ namespace NIC.API
                     template: "{controller}/{action}"
                 );
             });
+            
         }
     }
 }

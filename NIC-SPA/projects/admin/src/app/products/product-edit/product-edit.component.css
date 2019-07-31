@@ -1,0 +1,24 @@
+.form-inputs{
+    display: inline-grid;
+    width: 40%;
+}
+
+.input-description{
+    width: 130%;
+    
+}
+textarea{
+    max-height: 150px;
+}
+.button-save{
+    width: min-content;
+    margin-right: 10px;
+
+}
+.button-cancel{
+    width: min-content;
+}
+.button-back{
+    
+    margin-right: 10px;
+}

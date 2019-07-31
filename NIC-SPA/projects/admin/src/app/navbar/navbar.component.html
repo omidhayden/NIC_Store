@@ -48,13 +48,13 @@
         </div>
         <ul class="sidebar-menu tree" data-widget="tree">
                 <li class="header">MAIN NAVIGATION</li>
-                <li class="active treeview menu-open">
+                
                   
                   <ul class="treeview-menu">
-                    <li><a routerLink = '/admin/dashboard'>Dashboard </a></li>
-                    <li><a routerLink = '/admin/products'>Products </a></li>
+                    <li [routerLinkActive]="['is-active']"><a  routerLink = '/admin/dashboard'>Dashboard </a></li>
+                    <li [routerLinkActive]="['is-active']"><a routerLink = '/admin/products'>Products </a></li>
                   </ul>
-                </li>
+                
         </ul>
                 
                 

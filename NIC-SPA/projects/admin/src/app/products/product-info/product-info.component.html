@@ -1,18 +1,25 @@
 <navbar></navbar>
-<div class=" container admin-content-wrapper" *ngIf="product">
-  <h2>Product Information</h2>
+<div class="container admin-content-wrapper" *ngIf="product">
+  <h2>Product Details</h2>
   <mat-tab-group>
     <mat-tab label="Product">
-        <label class="name">Name</label>
-        <h4>{{product.name}}</h4>
-        <label>Description</label>
-        <p>{{product.details}}</p>
-        <label>Price</label>
-        <p>{{product.price}}</p>
-        
+      
+        <product-edit [productEdit]="showEdit" (cancelToggle)="showEdit =$event" (passProduct)="productFromEdit($event)"></product-edit>
+        <div *ngIf="!showEdit">
+            <label class="name">Name</label>
+            <h4>{{product.name}}</h4>
+            <label>Description</label>
+            <p>{{product.details}}</p>
+            <label>Price</label>
+            <p>{{product.price}}</p>
+            <button  mat-flat-button color="primary" type="button" label="Click" (click)="toggleEdit()"  >Edit</button>
+        </div>
     </mat-tab>
     <mat-tab label="Photos">
-      <admin-product-photo></admin-product-photo>
+      <admin-product-photo [photos]="product.photos" ></admin-product-photo>
     </mat-tab>
+    <mat-tab label="Price Details">
+        
+      </mat-tab>
   </mat-tab-group>
 </div>

@@ -10,8 +10,9 @@ import { Routes, RouterModule } from '@angular/router';
 
 
 
+
 const routes: Routes = [
-  {path: '', component:DashboardComponent},
+  
   {path:'admin', redirectTo:'admin/dashboard', pathMatch:'full' },
   {path:'admin/dashboard', component: DashboardComponent},
   {
@@ -26,8 +27,8 @@ const routes: Routes = [
   {
     path:'admin/products/:id',
     component:ProductInfoComponent
-  }
-      
+  },
+  
     
   ];
   

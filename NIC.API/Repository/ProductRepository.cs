@@ -32,7 +32,7 @@ namespace NIC.API.Repository
 
         public async Task<Product> GetProduct(int id)
         {
-            return await _db.Products.FirstOrDefaultAsync(p => p.Id ==id);
+            return await _db.Products.Include(p => p.Photos).FirstOrDefaultAsync(p => p.Id ==id);
         }
 
         public async Task<IEnumerable<Product>> GetProducts()
@@ -41,9 +41,13 @@ namespace NIC.API.Repository
             return products;
         }
 
+       
+
         public async Task<bool> SaveAll()
         {
            return await _db.SaveChangesAsync()>0;
         }
+
+     
     }
 }

@@ -1,0 +1,10 @@
+.alert{
+    padding: 2px;
+    font-size: smaller;
+    width:70%; 
+}
+
+*:focus {
+    outline: 0;
+    outline: none;
+    }
