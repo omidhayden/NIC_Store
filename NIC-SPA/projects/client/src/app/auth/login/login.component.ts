@@ -1,10 +1,11 @@
 import { AlertifyService } from './../../../../../../src/app/alertify.service';
 import { AuthService } from './../../_services/auth.service';
-import { Validators, FormBuilder, FormGroup, FormControl, NgModel, Form } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup, FormControl, NgModel, Form, AbstractControl } from '@angular/forms';
 import { LoginData } from './../../_models/LoginData';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { environment } from 'src/environments/environment';
+import { RxwebValidators } from '@rxweb/reactive-form-validators';
 
 @Component({
   selector: 'app-login',
@@ -13,8 +14,10 @@ import { environment } from 'src/environments/environment';
 })
 export class LoginComponent implements OnInit {
   imageDir = environment.imageDir;
-  data: FormGroup
-
+  data: FormGroup;
+  registerData: FormGroup;
+  registerT: any = false;
+  
   
 
   constructor(
@@ -29,8 +32,22 @@ export class LoginComponent implements OnInit {
       username: new FormControl('', [Validators.required, Validators.minLength(5)]),
       password: new FormControl('', [Validators.required, Validators.minLength(6)] )
     });
+
+
+    this.registerData = this.fb.group({
+      username: new FormControl('', [Validators.required, Validators.minLength(5)]),
+
+      email: new FormControl('', [Validators.email]),
+
+      password: new FormControl('', [Validators.required]),
+
+      confirmPassword: new FormControl('', [Validators.required , RxwebValidators.compare({fieldName: 'password'})])
+    });
     
   }
+
+  
+  
   get formControls() { return this.data.controls; }
 
 
@@ -50,5 +67,34 @@ export class LoginComponent implements OnInit {
       console.log('Failed to login');
       this.alertify.error('Username and Password do not match!')
     })
+  }
+
+
+
+
+
+  register(){
+
+    if(this.registerData.invalid == true) return this.alertify.error('Please check your inputs.')
+
+
+    const rData= {
+      username: this.registerData.get('username').value,
+      email: this.registerData.get('email').value,
+      password: this.registerData.get('password').value
+    };
+
+    this.authService.register(rData).subscribe(()=>{
+      this.alertify.success('Registration was successfull.')
+      this.registerT = false;
+    }, (e)=>{
+      console.log(e);
+      this.alertify.error('Registration was unsuccessful.');
+    })
+  }
+
+
+  registerToggle(){
+    this.registerT = !this.registerT
   }
 }

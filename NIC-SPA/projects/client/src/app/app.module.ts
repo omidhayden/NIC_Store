@@ -17,7 +17,7 @@ import {MatBadgeModule} from '@angular/material/badge';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import {MatMenuModule} from '@angular/material/menu';
-
+import {RxReactiveFormsModule} from "@rxweb/reactive-form-validators"
 
 const providers = []
 @NgModule({
@@ -34,8 +34,8 @@ const providers = []
     ClientRoutingModule,
     FormsModule,
 
-
-
+    //npm install @rxweb/reactive-form-validators for password validation
+    RxReactiveFormsModule,
     MatButtonModule,
     MatInputModule,
     MatBadgeModule,

@@ -20,7 +20,7 @@ export class NavbarComponent implements OnInit {
   loginModal():void
   {
     const dialogRef = this.dialog.open(LoginComponent, {
-      width: '300px',
+      width: '310px',
      
       // data: {username: this.username, password: this.password}
      

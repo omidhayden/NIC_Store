@@ -1,84 +1,212 @@
 <section>
-    <img src="">
-        <span></span>
-        <h4 style="text-align: center; margin-bottom: 20px;">NIC Store</h4>
-        <b>Please enter your login information:</b>
-        <br>
-        <br>
-        <form [formGroup]="data"  >
-                <mat-form-field class="full-width" >
-                        <input matInput required minlength="5" placeholder='User name or Email' type='text' formControlName="username"  name="username">
-                        <mat-error *ngIf="data.get('username').hasError('required') && data.get('username').touched">
-                                Please enter your username or email.
-                        </mat-error>
-                        <mat-error *ngIf="data.get('username').hasError('minlength') && data.get('username').touched">
-                                username must be at least 5 characters long.
-                        </mat-error>
-                </mat-form-field>
-                
-                
-                <mat-form-field>
-                        <input matInput minlength="6" required placeholder='Password' type='password' formControlName="password" name="password">
-                        <mat-error *ngIf="data.get('password').hasError('required') && data.get('password').touched">
-                                Please enter your password.
-                        </mat-error>
-                        <mat-error *ngIf="data.get('password').hasError('minlength') && data.get('password').touched">
-                                username must be at least 6 characters long.
-                        </mat-error>
-                </mat-form-field>
-              
-                <div>
+        <div style="text-align: center">
+                        <img class="" style="margin: 0 auto; text-align: center; " src="assets/NIC.png" />
+        </div>
+  
+  <span></span>
+  <h4 style="text-align: center; margin-bottom: 20px;">NIC Store</h4>
 
-                </div>
+  <div class="login-div" *ngIf="!registerT">
+
+    <b>Please enter your login information:</b>
+    <br />
+    <br />
+    <form [formGroup]="data">
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          required
+          minlength="5"
+          placeholder="User name or Email"
+          type="text"
+          formControlName="username"
+          name="username"
+        />
+        <mat-error
+          *ngIf="
+            data.get('username').hasError('required') &&
+            data.get('username').touched
+          "
+        >
+          Please enter your username or email.
+        </mat-error>
+        <mat-error
+          *ngIf="
+            data.get('username').hasError('minlength') &&
+            data.get('username').touched
+          "
+        >
+          username must be at least 5 characters long.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+          matInput
+          minlength="6"
+          required
+          placeholder="Password"
+          type="password"
+          formControlName="password"
+          name="password"
+        />
+        <mat-error
+          *ngIf="
+            data.get('password').hasError('required') &&
+            data.get('password').touched
+          "
+        >
+          Please enter your password.
+        </mat-error>
+        <mat-error
+          *ngIf="
+            data.get('password').hasError('minlength') &&
+            data.get('password').touched
+          "
+        >
+          username must be at least 6 characters long.
+        </mat-error>
+      </mat-form-field>
+
+      <div></div>
+
+      <button
+        mat-raised-button
+        [disabled]="!data.valid"
+        (click)="submitLogin()"
+        type="submit"
+        color="primary"
+      >
+        Login
+      </button>
+      <button mat-button (click)="onNoClick()" color="warn">Cancel</button>
+      <br>
+      <p>New costumer? <a (click)="registerToggle()" tabindex="0" role="button" >Create an account</a> </p>
+
+      <!-- [mat-dialog-close]="data" -->
+    </form>
+  </div>
+
+
+
+
+
+
+
+
+
+  <div class="register" *ngIf="registerT">
+    <h5>Create Account</h5>
+    <br />
+    <form [formGroup]="registerData">
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          required
+          minlength="5"
+          placeholder="User name "
+          type="text"
+          formControlName="username"
+          name="username"
+        />
+        <mat-error
+          *ngIf="
+            registerData.get('username').hasError('required') &&
+            registerData.get('username').touched
+          "
+        >
+          Username is required!
+        </mat-error>
+        <mat-error
+          *ngIf="
+            registerData.get('username').hasError('minlength') &&
+            registerData.get('username').touched
+          "
+        >
+          username must be at least 5 characters long.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          required
+          placeholder="Email "
+          type="text"
+          formControlName="email"
+          name="email"
+        />
+        <mat-error *ngIf="
+        registerData.get('email').hasError('required') &&
+        registerData.get('email').touched
+        ">
+        Email is required!
+        </mat-error>
+        <mat-error *ngIf="
+        registerData.get('email').hasError('email') &&
+        registerData.get('email').touched
+        ">
+        Email is required!
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          required
+          placeholder="Password "
+          type="password"
+          formControlName="password"
+          name="password"
+        />
+        <mat-error
+          *ngIf="
+            registerData.get('password').hasError('required') &&
+            registerData.get('password').touched
+          "
+        >
+          Password is required!
+        </mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field class="full-width">
+                <input
+                  matInput
+                  required
+                  formControlName="confirmPassword"
+                  placeholder="Confirm Password"
+                  type="password"
+                  name="passwordConfirm"
+                />
+                <mat-error
+          *ngIf="
+            registerData.get('confirmPassword').hasError('required') &&
+            registerData.get('confirmPassword').touched
+          "
+        >
+          Please confirm your password!
+        </mat-error>
+        <mat-error
                 
-                <button mat-raised-button [disabled]="!data.valid" (click)="submitLogin()" type="submit" color="primary">Login</button>
-                <button mat-button (click)="onNoClick()"  color="warn">Cancel</button>
-                <!-- [mat-dialog-close]="data" -->
-        </form>
+          *ngIf="
+             registerData.get('confirmPassword').errors && !registerData.get('password').hasError('required')
+          "
+        >
+          Your password does not match!
+        </mat-error>
+
+        </mat-form-field>
+                <button
+        mat-raised-button
         
+        (click)="register()"
+        type="submit"
+        color="primary"
+      >
+        Create Account
+      </button>
+      
+      <button mat-button (click)="onNoClick()" color="warn">Cancel</button>
+               
+    </form>
+  </div>
 </section>
-
-
-
-
-
-
-
-<!-- 
-
-<section>
-        <img src="">
-            <span></span>
-            <h4 style="text-align: center; margin-bottom: 20px;">NIC Store</h4>
-            <b>Please enter your login information:</b>
-            <br>
-            <br>
-            <form #loginForm="ngForm"  >
-                    <mat-form-field class="example-full-width" >
-                            <input matInput required placeholder='User name or Email' type='text' [(ngModel)]="data.username"  name="username" #username="ngModel">
-                    </mat-form-field>
-                    <div *ngIf="username.touched && username.invalid">
-    
-                            <div class="alert alert-danger" *ngIf="username?.errors.required ">
-                                    Username is required
-                            </div>
-                      
-                    </div>
-                    
-                    <mat-form-field>
-                            <input matInput required placeholder='Password' type='password' [(ngModel)]="data.password" name="password" #password="ngModel">
-                    </mat-form-field>
-                    <div *ngIf="password.touched && password.invalid">
-    
-                            <div class="alert alert-danger" *ngIf="password?.errors.required ">
-                                    Password is required
-                            </div>
-                    </div>
-                    <div>
-    
-                    </div>
-                    <button mat-button (click)="onNoClick()" color="warn">Cancel</button>
-                    <button mat-raised-button [mat-dialog-close]="data" type="submit" color="primary">Login</button>
-            </form>
-            
-    </section> -->

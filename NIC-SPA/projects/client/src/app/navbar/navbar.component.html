@@ -19,12 +19,15 @@
         >
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
+        <a class="nav-link" href="#">Products</a>
       </li>
+      <li class="nav-item">
+          <a class="nav-link" href="#">Deals</a>
+        </li>
     </ul>
     <ul class="navbar-nav navbar-right">
       <li *ngIf="!loggedIn()" class="nav-item">
-        <button mat-raised-button (click)="loginModal()">Login</button>
+        <button mat-button (click)="loginModal()">Login</button>
       </li>
       <button *ngIf="loggedIn()" mat-button [matMenuTriggerFor]="beforeMenu">
         Profile
@@ -38,8 +41,7 @@
       </mat-menu>
       
       <li class="nav-item">
-        <a class="nav-link" href="#"
-          ><span matBadge="4" matBadgeOverlap="false">Cart</span></a
+        <a  class="nav-link cart" href="#"><span class="fa fa-shopping-cart fa-2x" style="font-size: 23px; "></span><span matBadge="4" matBadgeOverlap="false"></span></a
         >
       </li>
     </ul>
