@@ -93,6 +93,7 @@ namespace NIC.API
             services.AddScoped<IUserRepository,UserRepository>();
             services.AddScoped<ICartRepository, CartRepository>();
             services.AddScoped<IPhotoRepository, PhotoRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
 
             services.AddSpaStaticFiles(configuration =>
             {

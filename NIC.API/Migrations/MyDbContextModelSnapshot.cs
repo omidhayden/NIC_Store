@@ -128,6 +128,19 @@ namespace NIC.API.Migrations
                     b.ToTable("CartItems");
                 });
 
+            modelBuilder.Entity("NIC.API.Models.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+                });
+
             modelBuilder.Entity("NIC.API.Models.Photo", b =>
                 {
                     b.Property<int>("Id")
@@ -164,6 +177,19 @@ namespace NIC.API.Migrations
                     b.ToTable("Products");
                 });
 
+            modelBuilder.Entity("NIC.API.Models.Product_SubCategory", b =>
+                {
+                    b.Property<int>("ProductId");
+
+                    b.Property<int>("SubCategoryId");
+
+                    b.HasKey("ProductId", "SubCategoryId");
+
+                    b.HasIndex("SubCategoryId");
+
+                    b.ToTable("Product_SubCategories");
+                });
+
             modelBuilder.Entity("NIC.API.Models.Role", b =>
                 {
                     b.Property<string>("Id")
@@ -186,6 +212,23 @@ namespace NIC.API.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+                });
+
+            modelBuilder.Entity("NIC.API.Models.SubCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CategoryId");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("SubCategories");
                 });
 
             modelBuilder.Entity("NIC.API.Models.User", b =>
@@ -309,6 +352,27 @@ namespace NIC.API.Migrations
                     b.HasOne("NIC.API.Models.Product", "Products")
                         .WithMany("Photos")
                         .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("NIC.API.Models.Product_SubCategory", b =>
+                {
+                    b.HasOne("NIC.API.Models.Product", "Product")
+                        .WithMany("ProductSubCategories")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("NIC.API.Models.SubCategory", "SubCategory")
+                        .WithMany("ProductSubCategories")
+                        .HasForeignKey("SubCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("NIC.API.Models.SubCategory", b =>
+                {
+                    b.HasOne("NIC.API.Models.Category", "Category")
+                        .WithMany("SubCategories")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

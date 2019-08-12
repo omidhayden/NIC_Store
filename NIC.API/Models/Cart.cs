@@ -13,8 +13,6 @@ namespace NIC.API.Models
         public int Id { get; set; }
         public DateTime OrderDate { get; set; }
         public string Status { get; set; }
-        
-       
         public ICollection<Cart_Items> CartItems { get; set; }
         public string UserId { get; set; }
         public User User { get; set; }

@@ -32,7 +32,22 @@ namespace NIC.API.Repository
 
         public async Task<Product> GetProduct(int id)
         {
-            return await _db.Products.Include(p => p.Photos).FirstOrDefaultAsync(p => p.Id ==id);
+            return await _db.Products
+            .Where(p => p.Id == id)
+            .Include(o => o.Photos)
+            .Include(s => s.ProductSubCategories)
+                .ThenInclude(s => s.SubCategory)
+                .ThenInclude(p=> p.Category)
+                
+
+                .FirstOrDefaultAsync();
+               
+                            
+                            
+            
+                
+         
+                    
         }
 
         public async Task<IEnumerable<Product>> GetProducts()
@@ -41,13 +56,23 @@ namespace NIC.API.Repository
             return products;
         }
 
-       
+        public async Task<IEnumerable<Product_SubCategory>> GetProductSubs(int productId)
+        {
+            var subs = await _db.Product_SubCategories.Where(p => p.ProductId == productId).ToListAsync();
+            return subs;
+        }
 
         public async Task<bool> SaveAll()
         {
            return await _db.SaveChangesAsync()>0;
         }
 
-     
+        public void update<T>(T entity) where T : class
+        {
+            _db.Update(entity);
+        }
+
+        
+        
     }
 }

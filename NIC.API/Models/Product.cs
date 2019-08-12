@@ -12,10 +12,14 @@ namespace NIC.API.Models
         public string Price { get; set; }
         public ICollection<Photo> Photos { get; set; }
         public ICollection<Cart_Items> CartItems { get; set; }
-        
+        public ICollection<Product_SubCategory> ProductSubCategories { get; set; }
         public Product()
         {
+            ProductSubCategories = new Collection<Product_SubCategory>();
             Photos = new Collection<Photo>();
         }
+
+
+
     }
 }

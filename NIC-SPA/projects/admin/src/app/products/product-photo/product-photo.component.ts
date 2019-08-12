@@ -18,7 +18,7 @@ import { FileUploader } from 'ng2-file-upload';
 })
 export class ProductPhotoComponent implements OnInit {
   
-  @Input() photos: Photo[];
+  @Input() photos: Photo []= [];
   // @Input() productId : number;
   productId: number;
   uploader:FileUploader ;
@@ -47,7 +47,7 @@ export class ProductPhotoComponent implements OnInit {
       
   ngOnInit() {
     this.initializeUploader();
-
+  
   }
   
   fileOverBase(e:any):void {
@@ -89,6 +89,7 @@ export class ProductPhotoComponent implements OnInit {
           url: res.url,
           isMain: res.isMain
         };
+        this.alertify.success("Successfully added.")
         this.photos.push(photo);
       }
     }

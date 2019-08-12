@@ -49,11 +49,39 @@
         <ul class="sidebar-menu tree" data-widget="tree">
                 <li class="header">MAIN NAVIGATION</li>
                 
-                  
+               
                   <ul class="treeview-menu">
-                    <li [routerLinkActive]="['is-active']"><a  routerLink = '/admin/dashboard'>Dashboard </a></li>
-                    <li [routerLinkActive]="['is-active']"><a routerLink = '/admin/products'>Products </a></li>
+                 
+                     <li [routerLinkActive]="['is-active']"><a  routerLink = '/admin/dashboard'>Dashboard </a></li>
+             
+                    <li (click)="showSubmenu = !showSubmenu" [routerLinkActive]="['is-active']">
+                            <mat-icon  class="label-icon" mat-list-icon>home</mat-icon>
+                        <a routerLink = '/admin/products'>
+                            Products 
+                        </a>
+                        <mat-icon class="menu-button" [ngClass]="{'rotate' : showSubmenu}">expand_more</mat-icon>
+                        
+                        
+                    </li>
+                        <ul class="sub" *ngIf="showSubmenu">
+                            <li >
+                                  <a href="">Add Product</a>  
+                            </li>
+                            <li >
+                                    <a href="">Product lists</a>  
+                              </li>
+                            <li >
+                                    <a href="">Categories</a>  
+                              </li>
+                              <li >
+                                    <a href="">Reviews</a>  
+                              </li>
+                        </ul>
+                    
+                      
+                    
                   </ul>
+               
                 
         </ul>
                 

@@ -189,7 +189,7 @@ ul {
     display: flex;
     border: #4b646f;
 
-    padding-left: 40px;
+    padding-left: 10px;
     
 }
 .treeview-menu li:hover
@@ -202,3 +202,20 @@ ul {
 
 }
 
+
+.rotate{
+    transform: rotate(180deg);
+}
+
+.label-icon{
+    padding-top: 6px;
+}
+.sub li{
+    opacity: 100;
+    overflow:hidden;
+    
+    -webkit-transition: 200ms ease-in;
+    -moz-transition: 200ms ease-in;
+    -o-transition: 200ms ease-in;
+    transition: 200ms ease-in;
+}

@@ -11,7 +11,7 @@ import { Product } from '../../_models/product';
   styleUrls: ['./product-info.component.css']
 })
 export class ProductInfoComponent implements OnInit {
-  product: any={}
+  product: any=[]
   productId: number;
   showEdit: boolean= false
   constructor(
@@ -37,7 +37,7 @@ export class ProductInfoComponent implements OnInit {
     .subscribe((p)=>{
       
       this.product = p;
-      
+    
     }, err =>{
       if(err.status == 204){
         this.router.navigate(['/admin/products']);
@@ -54,13 +54,15 @@ export class ProductInfoComponent implements OnInit {
   toggleEdit(){
     this.showEdit = !this.showEdit
     
+    
   }
 
 
   
   productFromEdit(p: Product): void{
-    this.product = p;
     console.log(p);
+    this.product = p;
+    
   }
 
 

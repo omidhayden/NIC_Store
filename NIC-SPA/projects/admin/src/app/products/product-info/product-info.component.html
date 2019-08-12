@@ -12,6 +12,11 @@
             <p>{{product.details}}</p>
             <label>Price</label>
             <p>{{product.price}}</p>
+            <label><h5>Product Sub Categories</h5></label>
+            <div *ngFor="let item of product.productSubCategories">
+              <p> <b>{{item.subCategoryName}}</b> from {{item.categoryName}} Category</p>
+            </div>
+            
             <button  mat-flat-button color="primary" type="button" label="Click" (click)="toggleEdit()"  >Edit</button>
         </div>
     </mat-tab>

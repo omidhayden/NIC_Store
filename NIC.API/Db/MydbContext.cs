@@ -25,6 +25,11 @@ namespace NIC.API.Db
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Cart_Items> CartItems { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<SubCategory> SubCategories { get; set; }
+        public DbSet<Product_SubCategory> Product_SubCategories  { get; set; }
+
+
         public DbSet<Photo> Photos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -45,7 +50,16 @@ namespace NIC.API.Db
             .HasForeignKey( f=> f.ProductId);
            
             
-
+            builder.Entity<Product_SubCategory>()
+            .HasKey(k => new {k.ProductId, k.SubCategoryId});
+            builder.Entity<Product_SubCategory>()
+            .HasOne(f => f.SubCategory)
+            .WithMany(d => d.ProductSubCategories)
+            .HasForeignKey(f=> f.SubCategoryId);
+            builder.Entity<Product_SubCategory>()
+            .HasOne(f=> f.Product)
+            .WithMany(d => d.ProductSubCategories)
+            .HasForeignKey(f => f.ProductId);
             
 
             builder.Entity<UserRole>()

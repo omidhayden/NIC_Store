@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import {MatInputModule, MatFormFieldModule} from '@angular/material';
+import {MatInputModule, MatFormFieldModule, MatIconModule} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ProductsListComponent } from './products/products-list/products-list.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms'
@@ -19,10 +19,12 @@ import { ProductPhotoComponent } from './products/product-photo/product-photo.co
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { FileUploadModule } from 'ng2-file-upload';
 import {MatCardModule} from '@angular/material/card';
-
-
-
-const providers = [ProductService]
+import {MatSelectModule} from '@angular/material/select';
+import { SubSelectComponent } from './products/sub-select/sub-select.component';
+import { CategoryService } from './_services/category.service';
+import {MatTreeModule} from '@angular/material/tree';
+import {MatListModule} from '@angular/material/list';
+const providers = [ProductService, CategoryService]
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +34,8 @@ const providers = [ProductService]
     ProductAddComponent,
     ProductInfoComponent,
     ProductPhotoComponent,
-    ProductEditComponent
+    ProductEditComponent,
+    SubSelectComponent
 
   ],
   imports: [
@@ -46,8 +49,12 @@ const providers = [ProductService]
     MatButtonModule,
     MatSlideToggleModule,
     FileUploadModule,
-    MatCardModule
-    
+    MatCardModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatTreeModule,
+    MatListModule
 
   ],
   providers,

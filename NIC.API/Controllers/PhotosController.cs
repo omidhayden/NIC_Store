@@ -38,17 +38,17 @@ namespace NIC.API.Controllers
             _mapper = mapper;
         }
 
-            //We don't use this anymore
-        [HttpGet]
-        public async Task<IActionResult> GetPhotos(int productId)
-        {
-            IEnumerable<Photo> photos = await _photoRepo.GetPhotos(productId);
+        //     //We don't use this anymore
+        // [HttpGet]
+        // public async Task<IActionResult> GetPhotos(int productId)
+        // {
+        //     IEnumerable<Photo> photos = await _photoRepo.GetPhotos(productId);
             
-            var returnPhotos = _mapper.Map<IEnumerable<AddPhotoViewModel>>(photos);
+        //     var returnPhotos = _mapper.Map<IEnumerable<AddPhotoViewModel>>(photos);
             
-            return Ok(returnPhotos);
+        //     return Ok(returnPhotos);
 
-        }
+        // }
 
 
 

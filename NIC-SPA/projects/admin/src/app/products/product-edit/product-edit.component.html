@@ -1,29 +1,53 @@
 <div *ngIf="productEdit">
     <h1>Edit {{product.name}}</h1>
-    <div *ngIf="editForm.dirty" class="alert alert-info" >
+
+
+    <div class="alert alert-info" >
         <strong> Attention:</strong> You have made changes. Any unsaved changes will be lost!
     </div>
-    <form #editForm="ngForm" (ngSubmit)="updateProduct()">
+    <form  [formGroup]="data">
         <div class="form-inputs">
                 <mat-form-field>
-                        <input matInput [(ngModel)]="product.name" name="name" placeholder="Name">
+                        <input matInput formControlName="name"  name="name" placeholder="Name" [value]="product.name">
                     </mat-form-field>
                     <mat-form-field class="input-description">
-                        <textarea matInput [(ngModel)]="product.details" name="details" placeholder="Description"></textarea>
+                        <textarea matInput formControlName="details"  name="details" [value]="product.details" placeholder="Description"></textarea>
                     </mat-form-field>
                     <mat-form-field>
-                            <input matInput [(ngModel)]="product.price" name="price" placeholder="Price">
+                            <input matInput formControlName="price"  [value]="product.price" name="price" placeholder="Price">
                     </mat-form-field>
+
+
+
+                    <admin-sub-select [product]= "product.productSubCategories" (returnSubs)="subsForReturn($event)"></admin-sub-select>
+                   
+                        
         </div>
         
 
         <div class="form-buttons">
-                <button [disabled]="!editForm.dirty" mat-flat-button class="button-save" color="primary" type="submit">Save Changes</button>
-                <button [disabled]="!editForm.submitted" mat-flat-button class="button-back" (click)="cancelEdit()" color="primary" type="button">Back to product</button>
-                <button [disabled]="editForm.submitted" mat-flat-button class="button-cancel" color="warn" type="button" (click)="cancelEdit()">Cancel</button>
+                <button  mat-flat-button class="button-save"(click)="updateProduct()"  color="primary" type="submit">Save Changes</button>
+                <button  mat-flat-button class="button-back" (click)="cancelEdit()" color="primary" type="button">Back to product</button>
+                <button  mat-flat-button class="button-cancel" color="warn" type="button" (click)="cancelEdit()">Cancel</button>
         </div>
 
 
     </form>
     
 </div>
+
+
+
+
+
+
+
+<!-- 
+
+<button [disabled]="!editForm.dirty" mat-flat-button class="button-save" color="primary" type="submit">Save Changes</button>
+<button [disabled]="!editForm.submitted" mat-flat-button class="button-back" (click)="cancelEdit()" color="primary" type="button">Back to product</button>
+<button [disabled]="editForm.submitted" mat-flat-button class="button-cancel" color="warn" type="button" (click)="cancelEdit()">Cancel</button> -->
+
+    <!-- <div *ngIf="editForm.dirty" class="alert alert-info" >
+            <strong> Attention:</strong> You have made changes. Any unsaved changes will be lost!
+        </div> -->

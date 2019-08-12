@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using NIC.API.IRepository;
 using NIC.API.Models;
 using NIC.API.ViewModels;
+using NIC.API.ViewModels.getproducts;
 
 namespace NIC.API.Controllers
 {
@@ -17,9 +18,11 @@ namespace NIC.API.Controllers
     {
         private readonly IProductRepository _repo;
         private readonly IMapper _mapper;
+        private readonly ICategoryRepository _sub;
 
-        public ProductController(IProductRepository repo, IMapper mapper)
+        public ProductController(IProductRepository repo, IMapper mapper, ICategoryRepository sub)
         {
+            _sub = sub;
             _repo = repo;
             _mapper = mapper;
         }
@@ -27,7 +30,7 @@ namespace NIC.API.Controllers
         public async Task<IActionResult> GetProducts()
         {
             var getProducts = await _repo.GetProducts();
-            var productToReturn =  _mapper.Map<IEnumerable<GetProductsViewModel>>(getProducts);
+            var productToReturn = _mapper.Map<IEnumerable<GetProductsViewModel>>(getProducts);
             return Ok(productToReturn);
 
         }
@@ -36,40 +39,88 @@ namespace NIC.API.Controllers
         public async Task<IActionResult> Getproduct(int id)
         {
 
-            var getProduct = await _repo.GetProduct(id);
-            // var productToReturn = _mapper.Map<ProductToReturnViewModel>(getProduct);
-            return Ok(getProduct);
+            Product getProduct = await _repo.GetProduct(id);
+             var firstMap = _mapper.Map<GetProductViewModel>(getProduct);
+              //Attn: Check auto mapper area
+
+            return Ok(firstMap);
 
         }
 
         [HttpPost("add")]
-        [Authorize]
+        // [Authorize]
         public async Task<IActionResult> AddProduct([FromBody] AddProductViewModel addProductVM)
         {
-           var mapFromBody =  _mapper.Map<Product>(addProductVM); 
-           _repo.add(mapFromBody);
-           await _repo.SaveAll();
+            Product mapFromBody = _mapper.Map<Product>(addProductVM);
+            _repo.add(mapFromBody);
+
+
+            AddSubCategoryToProductViewModel subForProductVM = new AddSubCategoryToProductViewModel();
+            if(addProductVM.SubCategoryId != null){
+                foreach (var item in addProductVM.SubCategoryId)
+                {
+                    subForProductVM.ProductId = mapFromBody.Id;
+                    subForProductVM.SubCategoryId = item;
+
+                    var mapFromSubCategory = _mapper.Map<Product_SubCategory>(subForProductVM);
+                    _repo.add(mapFromSubCategory);
+                }
+            }
             
-           return CreatedAtAction(nameof(Getproduct),new {id = mapFromBody.Id}, addProductVM);
-           
+
+
+            await _repo.SaveAll();
+
+            return CreatedAtAction(nameof(Getproduct), new { id = mapFromBody.Id }, addProductVM);
+
         }
+
+
+        
         [HttpPut("{id}")]
-        [Authorize]
+        // [Authorize]
         public async Task<IActionResult> UpdateProduct(int id, ProductUpdateViewModel productUpdateVM)
         {
             Product productFromRepo = await _repo.GetProduct(id);
-            if(productFromRepo == null) return BadRequest("Product not found!");
+            if (productFromRepo == null) return BadRequest("Product not found!");
+            var updatedProduct = _mapper.Map(productUpdateVM, productFromRepo);
+            
+            //productId
+            //prodUpVM SubCategoryId
+            IEnumerable<Product_SubCategory> removedSubs = await _repo.GetProductSubs(productFromRepo.Id);
+            foreach (var item in removedSubs)
+            {   
+                _repo.delete(item);
+            }
+            UpdateSubCategoryToProductViewModel subForProductVM = new UpdateSubCategoryToProductViewModel();
+            foreach (var item in productUpdateVM.SubCategoryId)
+            {
+                //_db.Product_SubCategory.get(int productId) //think about this
+                subForProductVM.ProductId = productFromRepo.Id;
+                subForProductVM.SubCategoryId = item;
+                var mapFromSubCategory = _mapper.Map<Product_SubCategory>(subForProductVM);
+                 _repo.add(mapFromSubCategory);
+                //It works.it doesnt save!!! Check it porfabor
+                
 
-             var returnProduct = _mapper.Map(productUpdateVM, productFromRepo);
-             if(await _repo.SaveAll()) return Ok(returnProduct);
+            }
+            
 
-                throw new Exception($"Updating user {id} failed on save");
+
+            
+            if (await _repo.SaveAll())
+            {
+                Product getProduct = await _repo.GetProduct(id);
+             var firstMap = _mapper.Map<GetProductViewModel>(getProduct);
+                return Ok(firstMap);
+            }
+            return BadRequest();
         }
 
-        
+
 
         [HttpDelete("{id}")]
-        [Authorize]
+        // [Authorize]
         public async Task<IActionResult> DeleteProduct(int id)
         {
             var product = await _repo.GetProduct(id);
@@ -77,6 +128,11 @@ namespace NIC.API.Controllers
             await _repo.SaveAll();
             return Ok();
         }
+
+
+
+        //Sub category for specific product 
+        //This Sub Category will only add separate produ
 
     }
 }
