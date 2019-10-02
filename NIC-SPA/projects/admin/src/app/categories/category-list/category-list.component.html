@@ -1,0 +1,176 @@
+<navbar></navbar>
+<div class="admin-content-wrapper">
+    <div  class="row">
+        <div class="col col-md-6 col-lg-6 col-sm-6 category">
+            <h4>Categories <button mat-button *ngIf="!catCreationPanel" color="primary" (click)="openCatCreation()"> Create a new category</button></h4>
+            <div class="create" *ngIf="catCreationPanel">
+                
+                  <form [formGroup]="categoryForm" action="">
+                      <h5>
+                          New Category
+                        </h5>
+      
+                    <mat-form-field class="example-full-width">
+                      <input matInput formControlName="name" placeholder="Name" >
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">
+                        <input style=" margin-bottom: 10px;" matInput formControlName="subs" ng-list placeholder="SubCategories" >
+                        <mat-hint align="start"><strong>Add related sub categories with comma</strong> </mat-hint>
+                      </mat-form-field>
+                      <div class="create-button">
+                          <button mat-button (click)="AddCategory()" color="primary">Add Category</button>
+                          <button mat-button (click)="openCatCreation()" color="warn">X</button>
+                      </div>
+
+                  </form>
+            </div>
+            <div style=" margin-left: 32px;" >
+                <mat-form-field fxFlex="50%">
+                  <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+                </mat-form-field>
+              </div>
+            <table  color="primary" mat-table [dataSource]="dataSource" class="mat-elevation-z8 category-table" matSort>
+
+                <!--- Note that these columns can be defined in any order.
+                    The actual rendered columns are set as a property on the row definition" -->
+                <!-- Position Column -->
+                <ng-container matColumnDef="id">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
+                  <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                </ng-container>
+              
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                  <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                </ng-container>
+                <!-- Delete button -->
+                <ng-container matColumnDef="delete">
+                  
+                    <th mat-header-cell *matHeaderCellDef>Actions</th>
+                    <td mat-cell *matCellDef="let row"> 
+                      <button 
+                      style="
+                      padding: 0;
+                      border: none;
+                      background: none;
+                      "
+                      (click)="DeleteCat(row.id)"
+                      mat-buttons>
+                          <mat-icon  class="label-icon" mat-list-icon>delete</mat-icon>
+                      </button>  
+                      <button 
+                      style="
+                      padding: 0;
+                      border: none;
+                      background: none;
+                      "
+                      (click)="AddSubsToggle(row)"
+                      mat-buttons>
+                          <mat-icon  class="label-icon" mat-list-icon>playlist_add</mat-icon>
+                      </button>  
+                        
+                        
+                    </td>
+                  </ng-container>
+              
+                
+                <tr mat-header-row *matHeaderRowDef="displayedColCats"></tr>
+                <tr style="cursor: -webkit-grab"
+                [ngClass]="{'highlight': selectedRowIndex == row.id}"
+                mat-row *matRowDef="let row; columns: displayedColCats; " (click)="populateSubs(row.id)">
+                <mat-icon  class="label-icon" mat-list-icon>delete</mat-icon>
+              </tr>
+              </table>
+
+
+              <mat-paginator style="margin-top: 25px;  position: absolute;  margin-left: 20px;"[pageSize]="6" [pageSizeOptions]="[6, 10, 20]"></mat-paginator>
+            
+        </div>
+        
+        <div class="col col-md-6 col-lg-6 col-sm-6">
+            <h5>Sub categories</h5>
+            <div *ngIf="addSubsPanel">
+                <form [formGroup]="subCategoryForm" action="">
+                    <h5>
+                        New Sub Categories for {{catDataInAddSubToggle.name}}
+                      </h5>
+    
+                  
+                  <mat-form-field class="example-full-width">
+                      <input required style=" margin-bottom: 10px;" matInput formControlName="subs" ng-list placeholder="SubCategories" >
+                      <mat-hint align="start"><strong>Add sub categories with comma</strong> </mat-hint>
+                      <mat-error *ngIf="
+        subCategoryForm.get('subs').hasError('required') &&
+        subCategoryForm.get('subs').touched
+        ">
+        Subs are required!
+        </mat-error>
+                    </mat-form-field>
+                    <div class="create-button">
+                        <button mat-button [disabled]="!subCategoryForm.dirty" (click)="AddSubCategory()" color="primary">Add Category</button>
+                        <button mat-button (click)="closeSubCatCreation()" color="warn">X</button>
+                    </div>
+
+                </form>
+            </div>
+            <div *ngIf="!relatedSubCategory" class="alert alert-secondary" role="alert">
+                Please select a category first!
+              </div>
+            <h4 ></h4>
+            <table mat-table *ngIf="relatedSubCategory"[dataSource]="relatedSubCategory" class="mat-elevation-z8 subcategory-table">
+
+                <!--- Note that these columns can be defined in any order.
+                      The actual rendered columns are set as a property on the row definition" -->
+              
+                <!-- Position Column -->
+                <ng-container matColumnDef="id">
+                  <th mat-header-cell *matHeaderCellDef> No. </th>
+                  <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                </ng-container>
+              
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef> Name </th>
+                  <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                </ng-container>
+
+
+
+                <ng-container matColumnDef="delete">
+                  
+                    <th mat-header-cell *matHeaderCellDef>Actions</th>
+                    <td mat-cell *matCellDef="let row"> 
+                      <button 
+                      style="
+                      padding: 0;
+                      border: none;
+                      background: none;
+                      "
+                      (click)="DeleteSubCat(row.id)"
+                      mat-buttons>
+                          <mat-icon  class="label-icon" mat-list-icon>delete</mat-icon>
+                      </button>  
+                  </ng-container>
+
+
+
+
+
+
+
+
+              
+                
+                <tr mat-header-row *matHeaderRowDef="displayedColSubCats"></tr>
+                <tr 
+                style="cursor: -webkit-grab" 
+                mat-row *matRowDef="let row; columns: displayedColSubCats; " 
+                
+                ></tr>
+              </table>
+        </div>
+        
+        
+    </div>
+</div>

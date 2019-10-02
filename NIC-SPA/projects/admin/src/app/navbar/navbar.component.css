@@ -219,3 +219,6 @@ ul {
     -o-transition: 200ms ease-in;
     transition: 200ms ease-in;
 }
+.sub li a{
+    white-space: nowrap;
+}

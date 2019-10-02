@@ -1,3 +1,4 @@
+import { UniqueValue } from './_pipes/unique-value.pipe';
 import { ProductEditComponent } from './products/product-edit/product-edit.component';
 import { ProductAddComponent } from './products/product-add/product-add.component';
 import { AlertifyService } from './../../../../src/app/alertify.service';
@@ -8,7 +9,7 @@ import { AppComponent } from './app.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import {MatInputModule, MatFormFieldModule, MatIconModule} from '@angular/material';
+import {MatInputModule, MatFormFieldModule, MatIconModule, MatSortModule, MatPaginatorModule} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ProductsListComponent } from './products/products-list/products-list.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms'
@@ -24,7 +25,11 @@ import { SubSelectComponent } from './products/sub-select/sub-select.component';
 import { CategoryService } from './_services/category.service';
 import {MatTreeModule} from '@angular/material/tree';
 import {MatListModule} from '@angular/material/list';
-const providers = [ProductService, CategoryService]
+import { CategoryListComponent } from './categories/category-list/category-list.component';
+import {MatTableModule} from '@angular/material/table';
+import { FlexLayoutModule } from '@angular/flex-layout';
+//NPM I @angular/flex-layout
+const providers = [ProductService, CategoryService, UniqueValue]
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,10 +40,13 @@ const providers = [ProductService, CategoryService]
     ProductInfoComponent,
     ProductPhotoComponent,
     ProductEditComponent,
-    SubSelectComponent
+    SubSelectComponent,
+    UniqueValue,
+    CategoryListComponent
 
   ],
   imports: [
+    FlexLayoutModule,
     FormsModule,
     MatFormFieldModule,
     MatTabsModule,
@@ -54,7 +62,10 @@ const providers = [ProductService, CategoryService]
     ReactiveFormsModule,
     MatIconModule,
     MatTreeModule,
-    MatListModule
+    MatListModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule
 
   ],
   providers,

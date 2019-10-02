@@ -8,6 +8,7 @@ namespace NIC.API.IRepository
     {
         Task<IEnumerable<Category>> GetAll();
         Task<Category> Get(int id);
+        Task<List<SubCategory>> GetSubsByCategory(int Catid);
 
         Task<Category> Add(string Name, IEnumerable<string> subCatName);
         

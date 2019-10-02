@@ -20,9 +20,11 @@ namespace NIC.API.Controllers
         private readonly IMapper _mapper;
         private readonly ICategoryRepository _sub;
 
+
         public ProductController(IProductRepository repo, IMapper mapper, ICategoryRepository sub)
         {
             _sub = sub;
+     
             _repo = repo;
             _mapper = mapper;
         }
@@ -30,7 +32,9 @@ namespace NIC.API.Controllers
         public async Task<IActionResult> GetProducts()
         {
             var getProducts = await _repo.GetProducts();
-            var productToReturn = _mapper.Map<IEnumerable<GetProductsViewModel>>(getProducts);
+            
+            IEnumerable<GetProductsViewModel> productToReturn = _mapper.Map<IEnumerable<GetProductsViewModel>>(getProducts);
+           
             return Ok(productToReturn);
 
         }
@@ -48,10 +52,13 @@ namespace NIC.API.Controllers
         }
 
         [HttpPost("add")]
-        // [Authorize]
+         [Authorize]
         public async Task<IActionResult> AddProduct([FromBody] AddProductViewModel addProductVM)
         {
+            
             Product mapFromBody = _mapper.Map<Product>(addProductVM);
+            DateTime dateAndTime = DateTime.Now;
+            mapFromBody.CreatedDate = dateAndTime;
             _repo.add(mapFromBody);
 
 
@@ -65,10 +72,8 @@ namespace NIC.API.Controllers
                     var mapFromSubCategory = _mapper.Map<Product_SubCategory>(subForProductVM);
                     _repo.add(mapFromSubCategory);
                 }
+
             }
-            
-
-
             await _repo.SaveAll();
 
             return CreatedAtAction(nameof(Getproduct), new { id = mapFromBody.Id }, addProductVM);

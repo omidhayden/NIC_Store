@@ -1,0 +1,41 @@
+[
+    {
+      "name": "Iphone4",
+      "details": "Everything you can imagine in this first iphone",
+      "price": "190",
+      "CreatedDate": "2018-12-30T13:46:27.787821"
+    },
+    {
+        "name": "Iphone5",
+        "details": "Everything you can imagine in this small iphone",
+        "price": "220",
+        "CreatedDate": "2019-02-05T13:46:27.787821"
+    },
+    {
+        "name": "Sony 2850E TV",
+        "details": "Best quality of monitor on TV",
+        "price": "300",
+        "CreatedDate": "2019-05-20T13:46:27.787821"
+    },
+    {
+        "name": "Iphone 11",
+        "details": "The newest Iphone with OLED monitor",
+        "price": "1099",
+        "CreatedDate": "2019-07-25T13:46:27.787821"
+    }
+    ,
+    {
+        "name": "Iphone 11Pro",
+        "details": "The newest Iphone with 3 camera lenses",
+        "price": "1199",
+        "CreatedDate": "2019-09-20T13:46:27.787821"
+    }
+    ,
+    {
+        "name": "Wooden Case",
+        "details": "Wooden Case for every iphone",
+        "price": "35",
+        "CreatedDate": "2019-09-10T13:46:27.787821"
+    }
+
+  ]

@@ -52,7 +52,14 @@ namespace NIC.API.Repository
 
         public async Task<IEnumerable<Product>> GetProducts()
         {
-            var products = await _db.Products.Include(p => p.Photos).ToListAsync();
+            var products = await _db.Products
+            .Include(p => p.Photos)
+            .Include(c => c.ProductSubCategories)
+            .ThenInclude(a => a.SubCategory)
+            .ThenInclude(a => a.Category)
+            .OrderByDescending(p => p.CreatedDate)
+            .AsNoTracking()
+            .ToListAsync();
             return products;
         }
 

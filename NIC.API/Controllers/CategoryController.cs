@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -28,7 +29,12 @@ namespace NIC.API.Controllers
         public async Task<IActionResult> GetAll()
         {
             var categoryFromRepo = await _repo.GetAll();
-            return Ok(categoryFromRepo);
+            var catreturn = _mapper.Map<List<CategoryToReturnViewModel>>(categoryFromRepo);
+            if(catreturn != null) {
+                return Ok(catreturn);
+            }
+            return BadRequest();
+            
         }
 
         [HttpGet("{id}")]
@@ -44,8 +50,12 @@ namespace NIC.API.Controllers
         public async Task<IActionResult> Add([FromBody]AddCategoryWithSubViewModel catWithSubVM)
         {
             var cToReturn = await _repo.Add(catWithSubVM.Name, catWithSubVM.SubCategoryName);
-            await _repo.SaveAll();
-            return Ok();
+            if(await _repo.SaveAll()){
+                var catreturn = _mapper.Map<CategoryToReturnViewModel>(cToReturn);
+                return Ok(catreturn);
+            }
+            return BadRequest();
+            
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> Remove(int id)
@@ -74,15 +84,16 @@ namespace NIC.API.Controllers
         {
             Category catFromRepo = await _repo.Get(categoryId);
             var subFromRepo =await _repo.AddSubCategory(catFromRepo.Id, addSubCatVM.Name);
-            if(await _repo.SaveAll()) return Ok();
+            if(await _repo.SaveAll()) return RedirectToAction(nameof(GetAllSubsWithCatId),new {id= categoryId});
 
             return BadRequest();
         }
 
-        [HttpDelete("{subCategoryId}")]
+        [HttpDelete("sub/{subCategoryId}")]
         public async Task<IActionResult> DeleteSubCategory(int subCategoryId)
         {
             var sub = await _repo.GetSub(subCategoryId);
+            int catId = sub.CategoryId;
             _repo.delete(sub);
             if(await _repo.SaveAll())  return Ok();
             return BadRequest();
@@ -94,6 +105,13 @@ namespace NIC.API.Controllers
         {
             var getSubs = await _repo.GetAllSubs();
             return Ok(getSubs);
+        }
+
+        [HttpGet("{id}/subs")]
+        public async Task<IActionResult> GetAllSubsWithCatId(int id)
+        {
+              List<SubCategory> subs = await _repo.GetSubsByCategory(id);
+              return Ok(subs);
         }
         
             

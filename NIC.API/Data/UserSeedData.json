@@ -1,0 +1,32 @@
+[
+    {
+      "username": "Wagner",
+      "email": "wagnermiles@aquazure.com",
+      "phone": "+1 (966) 442-3936",
+      "address": "857 Randolph Street, Fresno, Maryland, 8562"
+    },
+    {
+      "username": "Caroline",
+      "email": "carolinemiles@aquazure.com",
+      "phone": "+1 (949) 595-3313",
+      "address": "974 Boynton Place, Neahkahnie, West Virginia, 9815"
+    },
+    {
+      "username": "Black",
+      "email": "blackmiles@aquazure.com",
+      "phone": "+1 (895) 585-3257",
+      "address": "530 Battery Avenue, Bagtown, New Mexico, 480"
+    },
+    {
+      "username": "Hobbs",
+      "email": "hobbsmiles@aquazure.com",
+      "phone": "+1 (916) 513-2680",
+      "address": "330 Pierrepont Place, Lynn, Connecticut, 8527"
+    },
+    {
+      "username": "Smith",
+      "email": "smithmiles@aquazure.com",
+      "phone": "+1 (997) 469-2541",
+      "address": "506 Sumner Place, Urbana, South Dakota, 2894"
+    }
+  ]

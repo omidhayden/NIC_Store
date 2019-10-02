@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using NIC.API.Db;
 using NIC.API.IRepository;
 using NIC.API.Models;
+using System.Linq;
 
 namespace NIC.API.Repository
 {
@@ -55,7 +56,7 @@ namespace NIC.API.Repository
 
         public async Task<IEnumerable<Category>> GetAll()
         {
-            return await _db.Categories.Include(p => p.SubCategories).ToListAsync();
+            return await _db.Categories.ToListAsync();
         }
 
         public async Task<bool> SaveAll()
@@ -92,6 +93,10 @@ namespace NIC.API.Repository
         {
             return await _db.SubCategories.ToListAsync();
         }
-        
+
+        public async Task<List<SubCategory>> GetSubsByCategory(int Catid)
+        {
+            return await _db.SubCategories.Where( s =>s.CategoryId == Catid).ToListAsync();
+        }
     }
 }

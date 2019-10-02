@@ -1,0 +1,14 @@
+table {
+    width: -webkit-fill-available;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+.table-container{
+    
+        height: 600px;
+        overflow: auto;
+      
+}
+.admin-content-wrapper{
+    overflow: hidden;
+}

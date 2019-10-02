@@ -27,14 +27,15 @@ export class ProductService {
     return this.http.put("http://localhost:5000/api/product/" + productId, product)
     .toPromise()
     .then((result)=>{
-      return result
+      return result;
     })
     
   }
 
 
   addProduct(product: any){
-    return this.http.post('http://localhost:5000/api/product/add', product);
+     return this.http.post('http://localhost:5000/api/product/add', product);
+    
   }
   deleteProduct(id: number)
   {

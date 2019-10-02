@@ -47,11 +47,11 @@ export class ProductAddComponent implements OnInit {
     }
     this.productService.addProduct(product).subscribe(()=>{
       this.alertify.success("Product added successfully");
-    }, error => {
-      this.alertify.error(error);
-    }, ()=>{
-      this.router.navigate(['/admin/products']);
-    })
+    },(err)=>{
+      if(err.status ==  401) return this.alertify.error(err.statusText);
+      return this.alertify.error("Server Error");
+
+    });
   }
   cancel(){
     this.router.navigate(['/admin/products']);

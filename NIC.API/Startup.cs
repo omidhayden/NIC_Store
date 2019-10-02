@@ -22,6 +22,7 @@ using Microsoft.IdentityModel.Tokens;
 using NIC.API.Helpers;
 using System.Text;
 
+
 namespace NIC.API
 {
     public class Startup
@@ -78,7 +79,8 @@ namespace NIC.API
             
 
 
-            
+   
+
             services.AddDbContext<MyDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
             .AddJsonOptions( opt => 
@@ -116,6 +118,7 @@ namespace NIC.API
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            
             app.UseSpaStaticFiles();
             app.UseStaticFiles();
             app.UseAuthentication();

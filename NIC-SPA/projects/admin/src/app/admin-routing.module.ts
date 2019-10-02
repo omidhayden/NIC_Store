@@ -1,3 +1,4 @@
+import { CategoryListComponent } from './categories/category-list/category-list.component';
 import { ProductInfoComponent } from './products/product-info/product-info.component';
 import { ProductAddComponent } from './products/product-add/product-add.component';
 import { ProductsListComponent } from './products/products-list/products-list.component';
@@ -28,7 +29,10 @@ const routes: Routes = [
     path:'admin/products/:id',
     component:ProductInfoComponent
   },
-  
+  {
+    path:'admin/categories',
+    component:CategoryListComponent
+  },
     
   ];
   

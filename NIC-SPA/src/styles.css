@@ -22,6 +22,7 @@ body {
     min-height: calc(100vh - 101px);
     background-color: #ecf0f5;
     z-index: 800;
+    width: -webkit-fill-available;
     margin-left: 230px;
     height: -webkit-fill-available;
 }

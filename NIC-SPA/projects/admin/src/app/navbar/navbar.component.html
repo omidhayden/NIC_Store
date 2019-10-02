@@ -54,7 +54,7 @@
                  
                      <li [routerLinkActive]="['is-active']"><a  routerLink = '/admin/dashboard'>Dashboard </a></li>
              
-                    <li (click)="showSubmenu = !showSubmenu" [routerLinkActive]="['is-active']">
+                    <li (click)="showSubmenu = !showSubmenu" >
                             <mat-icon  class="label-icon" mat-list-icon>home</mat-icon>
                         <a routerLink = '/admin/products'>
                             Products 
@@ -68,10 +68,10 @@
                                   <a href="">Add Product</a>  
                             </li>
                             <li >
-                                    <a href="">Product lists</a>  
+                                    <a routerLink = '/admin/products'[routerLinkActive]="['is-active']" >Product lists</a>  
                               </li>
                             <li >
-                                    <a href="">Categories</a>  
+                                    <a routerLink = '/admin/categories' [routerLinkActive]="['is-active']">Categories</a>  
                               </li>
                               <li >
                                     <a href="">Reviews</a>  
