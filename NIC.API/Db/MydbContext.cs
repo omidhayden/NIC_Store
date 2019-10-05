@@ -36,6 +36,8 @@ namespace NIC.API.Db
         {
             base.OnModelCreating(builder);
 
+            
+
             builder.Entity<Cart_Items>()
             .HasKey(k => new {k.CartId , k.ProductId});
             builder.Entity<Cart_Items>()

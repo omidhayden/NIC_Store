@@ -1,3 +1,4 @@
+import { AuthGuard } from './../../projects/client/src/app/_guards/auth.guard';
 import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 import { ClientSharedModule } from './../../projects/client/src/app/app.module';
 import { AdminSharedModule } from './../../projects/admin/src/app/app.module';

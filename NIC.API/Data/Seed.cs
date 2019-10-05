@@ -63,6 +63,23 @@ namespace NIC.API.Data
                 }
                 #endregion
 
+                #region Create Inventory Manager
+                //Creating admin
+                var InventoryUser = new User
+                {
+                    UserName = "inventory",
+                    Email = "In@nic.com"
+                };
+                var result1 = userManager.CreateAsync(InventoryUser, "isfahan").Result;
+
+                if(result1.Succeeded)
+                {
+                    var inventory = userManager.FindByNameAsync("inventory").Result;
+                    userManager.AddToRolesAsync(inventory, new[]{"Inventory Manager"}).Wait();
+
+                }
+                #endregion
+
 
             }
         }

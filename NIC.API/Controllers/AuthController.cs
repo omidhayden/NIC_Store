@@ -47,24 +47,55 @@ namespace NIC.API.Controllers
         {
             
             var userMap = _mapper.Map<User>(UserForRegisterVM);
-            if( await _repo.EmailExist(UserForRegisterVM.Email) == true) return BadRequest("Email Exist!");
-            var userFromRepo = await _repo.Register(userMap, UserForRegisterVM.Password);
-            if(!userFromRepo == true) return StatusCode(400);
-            var userToReturn = _mapper.Map<UserToReturnViewModel>(userMap);
-            return Ok(userToReturn);
+            // if( await _repo.EmailExist(UserForRegisterVM.Email) == true) return BadRequest("Email Exist!");
+            var result = await _userManager.CreateAsync(userMap, UserForRegisterVM.Password);
+            if(result.Succeeded) 
+            {
+                var userToReturn = _mapper.Map<UserToReturnViewModel>(userMap);
+                return Ok(userToReturn);
+            }
+            return BadRequest(result.Errors);
         }
 
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody]UserForLoginViewModel UserForLoginVM)
         {
-            var userFromRepo = await _repo.Login(UserForLoginVM.UserName, UserForLoginVM.Password);
-            var userToReturn = _mapper.Map<UserToReturnViewModel> (userFromRepo);
+
+            var UsernameChecker = await _userManager.FindByNameAsync(UserForLoginVM.UserName);
+            if(UsernameChecker != null)
+            {
+                var result = await _signInManager.CheckPasswordSignInAsync(UsernameChecker, UserForLoginVM.Password, false);
+                if(result.Succeeded)
+                {
+                    var userToReturn = _mapper.Map<UserToReturnViewModel> (UsernameChecker);
+                    return Ok(new {
+                    token = GenerateJwtToken(UsernameChecker).Result,
+                    user = userToReturn
+                    });
+                }
+                return BadRequest("Wrong username or password");
+            }
+            else
+            {
+                var EmailChecker = await _userManager.FindByEmailAsync(UserForLoginVM.UserName);
+                if(EmailChecker != null) 
+                {
+                    var result = await _signInManager.CheckPasswordSignInAsync(EmailChecker, UserForLoginVM.Password, false);
+                    if(result.Succeeded)
+                    {
+                        var userToReturn = _mapper.Map<UserToReturnViewModel> (EmailChecker);
+                        return Ok(new {
+                            token = GenerateJwtToken(UsernameChecker).Result,
+                            user = userToReturn
+                        });
+                    }
+                    return BadRequest("Wrong email or password");
+                }
+            }
+
+            return BadRequest("Wrong username or password");
             
-            return Ok(new {
-                token = GenerateJwtToken(userFromRepo).Result,
-                user = userToReturn
-            });
 
         }
         private async Task<string> GenerateJwtToken(User user)

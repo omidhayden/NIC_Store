@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
   ngOnInit():void {
     this.data = this.fb.group({
       username: new FormControl('', [Validators.required, Validators.minLength(5)]),
-      password: new FormControl('', [Validators.required, Validators.minLength(6)] )
+      password: new FormControl('', [Validators.required, Validators.minLength(6)])
     });
 
 
@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
 
       email: new FormControl('', [Validators.email]),
 
-      password: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required,Validators.minLength(6) ]),
 
       confirmPassword: new FormControl('', [Validators.required , RxwebValidators.compare({fieldName: 'password'})])
     });
@@ -64,8 +64,7 @@ export class LoginComponent implements OnInit {
       this.alertify.success('You successfully logged in!');
       this.dialogRef.close();
     }, error => {
-      console.log('Failed to login');
-      this.alertify.error('Username and Password do not match!')
+      this.alertify.error(error);
     })
   }
 
@@ -75,22 +74,24 @@ export class LoginComponent implements OnInit {
 
   register(){
 
-    if(this.registerData.invalid == true) return this.alertify.error('Please check your inputs.')
+    if(this.registerData.invalid == true) return this.alertify.error('Please check your inputs.');
 
+    
+      const rData= {
+        username: this.registerData.get('username').value,
+        email: this.registerData.get('email').value,
+        password: this.registerData.get('password').value
+      };
+  
+      this.authService.register(rData).subscribe(()=>{
+        this.alertify.success('Registration was successfull.')
+        this.registerT = false;
+      }, (e)=>{
+        this.alertify.error(e);
+      })
+    
 
-    const rData= {
-      username: this.registerData.get('username').value,
-      email: this.registerData.get('email').value,
-      password: this.registerData.get('password').value
-    };
-
-    this.authService.register(rData).subscribe(()=>{
-      this.alertify.success('Registration was successfull.')
-      this.registerT = false;
-    }, (e)=>{
-      console.log(e);
-      this.alertify.error('Registration was unsuccessful.');
-    })
+    
   }
 
 

@@ -31,7 +31,7 @@ namespace NIC.API.Controllers
         [HttpGet("all")]
         public async Task<IActionResult> GetProducts()
         {
-            var getProducts = await _repo.GetProducts();
+            IEnumerable<Product> getProducts = await _repo.GetProducts();
             
             IEnumerable<GetProductsViewModel> productToReturn = _mapper.Map<IEnumerable<GetProductsViewModel>>(getProducts);
            
@@ -52,7 +52,7 @@ namespace NIC.API.Controllers
         }
 
         [HttpPost("add")]
-         [Authorize]
+        [Authorize(Roles="Admin, Inventory Manager")]
         public async Task<IActionResult> AddProduct([FromBody] AddProductViewModel addProductVM)
         {
             
@@ -125,7 +125,7 @@ namespace NIC.API.Controllers
 
 
         [HttpDelete("{id}")]
-        // [Authorize]
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
             var product = await _repo.GetProduct(id);

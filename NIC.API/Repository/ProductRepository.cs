@@ -52,7 +52,7 @@ namespace NIC.API.Repository
 
         public async Task<IEnumerable<Product>> GetProducts()
         {
-            var products = await _db.Products
+            IEnumerable<Product> products = await _db.Products
             .Include(p => p.Photos)
             .Include(c => c.ProductSubCategories)
             .ThenInclude(a => a.SubCategory)

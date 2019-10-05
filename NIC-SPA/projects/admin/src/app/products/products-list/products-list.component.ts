@@ -50,7 +50,7 @@ export class ProductsListComponent implements OnInit {
      
       
       }, (e) =>{
-        this.alertify.error("Failed to load products!");
+        this.alertify.error(e);
       })
     }
     sortingDataAccessor(item, property) {
@@ -68,7 +68,7 @@ export class ProductsListComponent implements OnInit {
           this.alertify.success("Product deleted successfully!");
           
         },(e)=>{
-          this.alertify.error("Can't delete product");
+          this.alertify.error(e);
           
           this.router.navigate(['admin/products']);
         });

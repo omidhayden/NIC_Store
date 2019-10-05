@@ -21,7 +21,9 @@ using NIC.API.Repository;
 using Microsoft.IdentityModel.Tokens;
 using NIC.API.Helpers;
 using System.Text;
-
+using System.Net;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
 
 namespace NIC.API
 {
@@ -44,7 +46,7 @@ namespace NIC.API
             {
                 
                 opt.Password.RequireDigit= false;
-                opt.Password.RequiredLength =4;
+                opt.Password.RequiredLength =6;
                 opt.Password.RequireNonAlphanumeric = false;
                 opt.Password.RequireUppercase = false;
                 opt.User.RequireUniqueEmail = true;
@@ -74,13 +76,7 @@ namespace NIC.API
                                 ValidateAudience = false,
                     };
                 });
-                
-
             
-
-
-   
-
             services.AddDbContext<MyDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
             .AddJsonOptions( opt => 
@@ -115,8 +111,21 @@ namespace NIC.API
             }
             else
             {
+                //Global Handler Config
+                app.UseExceptionHandler(builder =>{
+                    builder.Run(async context =>{
+                        context.Response.StatusCode= (int)HttpStatusCode.InternalServerError;
+
+                        var error = context.Features.Get<IExceptionHandlerFeature>();
+                        if(error != null)
+                        {   
+                             context.Response.AddAplicationError(error.Error.Message);
+                            await context.Response.WriteAsync(error.Error.Message);
+                        }
+                    });
+                });
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                // app.UseHsts();
             }
             
             app.UseSpaStaticFiles();

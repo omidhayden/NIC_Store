@@ -48,8 +48,8 @@ export class ProductAddComponent implements OnInit {
     this.productService.addProduct(product).subscribe(()=>{
       this.alertify.success("Product added successfully");
     },(err)=>{
-      if(err.status ==  401) return this.alertify.error(err.statusText);
-      return this.alertify.error("Server Error");
+      
+      return this.alertify.error(err);
 
     });
   }

@@ -1,3 +1,4 @@
+import { AuthService } from './../_services/auth.service';
 import { LoginComponent } from './../auth/login/login.component';
 import { LoginData } from './../_models/LoginData';
 import { Component, OnInit } from '@angular/core';
@@ -12,7 +13,7 @@ export class NavbarComponent implements OnInit {
   loginData: any;
   username:string;
   password: string;
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, public authService: AuthService) { }
 
   ngOnInit() {
   }
@@ -33,8 +34,7 @@ export class NavbarComponent implements OnInit {
   }
 
   loggedIn(){
-    const token = localStorage.getItem('token');
-    return !!token;
+    return this.authService.loggedIn();
   }
   logOut(){
     localStorage.removeItem('token');

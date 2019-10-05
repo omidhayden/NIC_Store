@@ -1,3 +1,4 @@
+import { ErrorInterceptorProvider } from './interceptor/error.interceptor';
 import { AlertifyService } from './alertify.service';
 import {  HttpClientModule } from '@angular/common/http';
 import { AdminSharedModule } from './../../projects/admin/src/app/app.module';
@@ -25,7 +26,8 @@ import { AppComponent } from './app.component';
  
    ],
   providers: [
-    AlertifyService
+    AlertifyService,
+    ErrorInterceptorProvider
   ],
   bootstrap: [AppComponent]
 })
