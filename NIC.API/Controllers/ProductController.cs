@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NIC.API.Helpers;
 using NIC.API.IRepository;
 using NIC.API.Models;
 using NIC.API.ViewModels;
@@ -29,11 +30,13 @@ namespace NIC.API.Controllers
             _mapper = mapper;
         }
         [HttpGet("all")]
-        public async Task<IActionResult> GetProducts()
+        public async Task<IActionResult> GetProducts([FromQuery]ProductParams productParams)
         {
-            IEnumerable<Product> getProducts = await _repo.GetProducts();
+            var products = await _repo.GetProducts(productParams);
             
-            IEnumerable<GetProductsViewModel> productToReturn = _mapper.Map<IEnumerable<GetProductsViewModel>>(getProducts);
+            IEnumerable<GetProductsViewModel> productToReturn = _mapper.Map<IEnumerable<GetProductsViewModel>>(products);
+
+            Response.AddPagination(products.CurrentPage, products.PageSize, products.TotalCount, products.TotalPages );
            
             return Ok(productToReturn);
 

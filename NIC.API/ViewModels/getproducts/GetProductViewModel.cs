@@ -8,7 +8,7 @@ namespace NIC.API.ViewModels.getproducts
         public string  Name { get; set; }
         public string Details { get; set; }
         
-        public int Price { get; set; }
+        public decimal Price { get; set; }
         public IEnumerable<GetPhotoForProduct>  Photos{ get; set; }
         public IEnumerable<ProductSubCategoryViewModel> ProductSubCategories { get; set; }
         

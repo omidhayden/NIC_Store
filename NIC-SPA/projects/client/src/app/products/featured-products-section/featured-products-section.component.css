@@ -1,0 +1,154 @@
+.head h2{
+    font-weight: 700;
+    text-rendering: optimizeLegibility;
+    margin-bottom: -1rem;
+    margin-top: 10px;
+    background-color: indianred;
+}
+   
+.row{
+    margin: 0
+}
+
+
+hr{
+    margin-top: .5rem;
+
+    margin-bottom: 1rem;
+    margin-right: 50px;
+    border: 2px solid indianred;
+}
+/* 
+.slider_card-item.for-hero-talents-slider:nth-child(6) {
+    opacity: 1;
+   
+    visibility: visible;
+    
+} */
+.slider_card-item.for-hero-talents-slider {
+    left: 0;
+    margin-top: 15px;
+    height: 315px;
+    position: relative;
+    text-align: left;
+    top: 0;
+   opacity: 1;
+    visibility: visible;
+    width: 200px;
+}
+.slider_card-item:first-child(5) {
+    margin-left: 0;
+}
+.slider_card-item {
+    border-radius: 5px;
+
+    background-color: #fff;
+    box-shadow: 0 4px 4px rgba(0,0,0,.32);
+    display: block;
+    margin-left: 14px;
+    overflow: hidden;
+    position: relative;
+    text-decoration: none;
+    width: 200px;
+}
+
+
+.slider_card-item_content {
+    padding: 10px 13px 0;
+}
+
+.slider_card-item.for-hero-talents-slider .slider_card-item_photo {
+    height: 170px;
+    overflow: hidden;
+}
+.slider_card-item_photo {
+    position: relative;
+}
+.slider_card-item_photo img {
+    display: block;
+    width: 200px;
+    max-height: 230px;
+    margin-top: -8px;
+}
+.slider_card-item_title {
+    color: #000;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.4em;
+}
+.slider_card-details {
+    color: #455065;
+    opacity: .6;
+    padding-top: 8px;
+}
+.slider_card-item.for-hero-talents-slider .slider_card-item_more {
+    padding: 8px 0 5px;
+    position: absolute;
+    text-align: center;
+}
+.slider_card-item_more_wrapper {
+    height: 35px;
+    margin: 0 0 10px;
+    text-align: left;
+}
+.slider_card-item_more {
+    color: #262d3d;
+}
+
+.slider_card-item_more {
+    bottom: 0;
+    font-size: 11px;
+    left: 0;
+    letter-spacing: 1px;
+    padding: 0 32px 50px;
+    position: absolute;
+    display: flow-root;
+    right: 0;
+    text-transform: uppercase;
+}
+
+
+ .add-to-cart{
+    width: 86px;
+    height: 27px;
+    margin-bottom: 4px;
+
+
+ }
+
+ .cart-add, .cart-plus, .cart-minus{
+    color: #34495e;
+ }
+
+span.mat-button-wrapper{
+    display: table-caption;
+    margin: 0px 15px 10px 0px !important;
+    line-height: 0px !important;
+    font-size: x-small;
+ }
+ .slider_card-functions{
+    float: right;
+    margin-right: 11px;
+
+ }
+
+
+ .product-rating {
+    
+    padding-top: 5px;
+    padding-left: 20px;
+    font-size: 9px;
+    float: left;
+  }
+  
+  .product-rating i.grey {
+    color: #acacab;
+  }
+  
+  .product-reviews{
+    font-size: 8px;
+    margin: 1px;
+    width: 95px;
+    position: absolute;
+    padding-top: 17px;
+  }

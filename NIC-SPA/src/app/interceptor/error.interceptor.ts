@@ -26,6 +26,7 @@ export class ErrorInterceptor implements HttpInterceptor
                     return throwError(error.error[0].description);
                 }
 
+
                 if(error instanceof HttpErrorResponse)
                 {
                     const applicationError = error.headers.get('Application-Error');
@@ -46,7 +47,7 @@ export class ErrorInterceptor implements HttpInterceptor
                             }
                         }
                     }
-                    return throwError(modelStateError || serverError || 'Server Error');
+                    return throwError(modelStateError || serverError || error || 'Server Error');
                 }
 
 

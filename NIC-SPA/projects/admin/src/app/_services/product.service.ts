@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 export class ProductService {
   UrlBase: 'http://localhost:5000';
   ImageUrl: 'http://localhost:5000/uploads/'
-  
+   
   constructor(private http: HttpClient) { }
   
   getProducts(){

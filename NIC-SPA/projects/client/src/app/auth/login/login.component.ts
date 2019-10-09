@@ -64,6 +64,7 @@ export class LoginComponent implements OnInit {
       this.alertify.success('You successfully logged in!');
       this.dialogRef.close();
     }, error => {
+      if(error == null) return this.alertify.error("Server doesn't response.")
       this.alertify.error(error);
     })
   }

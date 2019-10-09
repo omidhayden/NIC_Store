@@ -1,0 +1,52 @@
+<div>
+  <div class="row">
+    <header class="head"><h2>Featured products</h2></header>
+  </div>
+
+  <hr />
+
+  <div class="row">
+      <ng-container *ngFor="let p of products; " >
+            <div class="slider_card-item for-talent for-hero-talents-slider">
+                    <div class="slider_card-item_photo">
+                      <img
+                        alt="Natalia Cackowska, Accomplished Designer."
+                        class="slider_card-item_photo_content"
+                        src="{{imageDir}}uploads/{{p.photoUrl}}"
+                      />
+                    </div>
+                    <div class="slider_card-item_content">
+                      <div class="slider_card-item_title">{{p.name}}</div>
+                      <div class="slider_card-item_details">
+                        {{p.details}}
+                      </div>
+                      <p><b>{{p.price | currency:'USD'}}</b></p>
+                      <div class="slider_card-item_more">
+                        <div class="slider_card-ratings">
+                            <span class="product-rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star grey"></i>
+                              </span>
+
+                        </div>
+                        <p  class="product-reviews">Reviews</p>
+                        <div class="slider_card-functions">
+                          <!-- <a class="cart-minus" href="#"
+                            ><i class="fas fa-minus fa-2x"></i
+                          ></a> -->
+              
+                          <button mat-raised-button class="add-to-cart" color="warn">
+                            <span class="mat-button-wrapper">Add to Cart</span>
+                          </button>
+                          <!-- <a class="cart-plus" href="#"><i class="fas fa-plus fa-2x"></i></a> -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+      </ng-container>
+    
+  </div>
+</div>

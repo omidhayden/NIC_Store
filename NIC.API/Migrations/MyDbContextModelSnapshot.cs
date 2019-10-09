@@ -172,7 +172,7 @@ namespace NIC.API.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<string>("Price");
+                    b.Property<decimal>("Price");
 
                     b.HasKey("Id");
 

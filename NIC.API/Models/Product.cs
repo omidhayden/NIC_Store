@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-
+using System.ComponentModel.DataAnnotations;
 
 namespace NIC.API.Models
 {
@@ -13,7 +13,8 @@ namespace NIC.API.Models
 
         public string Details { get; set; }
   
-        public string Price { get; set; }
+  [     DataType(DataType.Currency)]
+        public decimal Price { get; set; }
         public DateTime CreatedDate { get; set; }
         public ICollection<Photo> Photos { get; set; }
         public ICollection<Cart_Items> CartItems { get; set; }

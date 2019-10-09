@@ -1,0 +1,25 @@
+@media(min-width: 992px){
+    .col-lg-3 {
+        -webkit-box-flex: 0;
+        flex: 0 0 25%;
+        max-width: 20%;
+    }
+    .col-lg-9{
+        flex: 0 0 80%; 
+        max-width: 80%;
+    }
+}
+
+
+.featured-section{
+      /* Old browsers */
+  /* background: -moz-linear-gradient(-45deg, #fa782e 8%, #f8797f96 83%);
+  /* FF3.6-15 */
+  /* background: -webkit-linear-gradient(-45deg, #fa782e 8%, #f8797f96 83%); */
+  /* Chrome10-25,Safari5.1-6 */
+  /* background: linear-gradient(135deg, #fa782e 8%, #f8797f96 83%); */
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  /* filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#fa782e', endColorstr='#f8797f96', GradientType=1);  */
+  
+    padding-bottom: 10px;
+}

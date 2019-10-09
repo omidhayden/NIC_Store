@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using NIC.API.Db;
+using NIC.API.Helpers;
 using NIC.API.IRepository;
 using NIC.API.Models;
 
@@ -50,17 +51,16 @@ namespace NIC.API.Repository
                     
         }
 
-        public async Task<IEnumerable<Product>> GetProducts()
+        public async Task<PagedList<Product>> GetProducts(ProductParams productParams)
         {
-            IEnumerable<Product> products = await _db.Products
+            var products =  _db.Products
             .Include(p => p.Photos)
             .Include(c => c.ProductSubCategories)
             .ThenInclude(a => a.SubCategory)
             .ThenInclude(a => a.Category)
-            .OrderByDescending(p => p.CreatedDate)
-            .AsNoTracking()
-            .ToListAsync();
-            return products;
+            .OrderByDescending(p => p.CreatedDate).AsNoTracking();
+            
+            return await PagedList<Product>.CreateAsync(products, productParams.PageNumber, productParams.PageSize);
         }
 
         public async Task<IEnumerable<Product_SubCategory>> GetProductSubs(int productId)

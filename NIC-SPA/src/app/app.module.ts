@@ -7,8 +7,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { JwtModule } from '@auth0/angular-jwt';
 
 
+export function tokenGetter(){
+  return localStorage.getItem('token');
+}
 
 
 @NgModule({
@@ -22,8 +26,14 @@ import { AppComponent } from './app.component';
     AppRoutingModule,
 
     ClientSharedModule.forRoot(),
-    AdminSharedModule.forRoot()
- 
+    AdminSharedModule.forRoot(),
+    JwtModule.forRoot({
+      config:{
+        tokenGetter: tokenGetter,
+        whitelistedDomains:['localhost:5000'],
+        blacklistedRoutes:['localhost:5000/api/auth']
+      }
+    })
    ],
   providers: [
     AlertifyService,
