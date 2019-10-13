@@ -1,9 +1,10 @@
+import { ActivatedRoute } from '@angular/router';
 import { Pagination } from './../../../../../client/src/_models/pagination';
 
 
 import { Observable, empty } from 'rxjs';
 import { UniqueValue } from './../../_pipes/unique-value.pipe';
-import { Router } from '@angular/router';
+import { Router, ActivatedRouteSnapshot } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Product } from '../../_models/product';
 import { AlertifyService } from 'src/app/alertify.service';
@@ -25,41 +26,24 @@ export class ProductsListComponent implements OnInit {
   displayedColProducts: string[] = ['id', 'name', 'details', 'price', 'createdBy', 'category', 'createdDate', 'actions'];
   dataSource=new  MatTableDataSource();
   pagination :Pagination;
-  constructor(private uniqueValue: UniqueValue,private productService:ProductService, private alertify: AlertifyService, private router: Router) { }
+  constructor(private uniqueValue: UniqueValue,private productService:ProductService, private alertify: AlertifyService, private router: Router, private route: ActivatedRoute) { 
+
+
+
+  }
   
   pageNumber :number = 1;
   pageSize: number =  10;
   
     ngOnInit() {
-      
-      
-      this.Getproducts();
 
-
-      
-      
-        
-    }
-
-
-
-
-    Getproducts(){
-        this.productService.getProducts(null ,null, null,this.pageNumber, this.pageSize).subscribe(data=> {
-        this.products = data.result;
-        this.pagination = data.pagination;
-
-       this.dataSource = new MatTableDataSource(this.products)
+      this.route.data.subscribe(data => {
+        this.products = data['products'].result;
+        this.pagination = data['products'].pagination;
+        this.dataSource = new MatTableDataSource(this.products);
  
-    //    setTimeout(() => { 
-    //     // this.dataSource.sort = this.sort;
-   
-     
-
-    //  });
-      }, (e) =>{
-        this.alertify.error(e);
       })
+        
     }
 
 
@@ -89,7 +73,6 @@ export class ProductsListComponent implements OnInit {
         this.pagination = data.pagination;
 
        this.dataSource = new MatTableDataSource(this.products)
-        console.log(this.products);
         setTimeout(() => { 
 
          this.dataSource.sort = this.sort;
@@ -100,11 +83,6 @@ export class ProductsListComponent implements OnInit {
       }, (e) =>{
         this.alertify.error(e);
       })
-
-
-
-
-
     }
 
 
@@ -146,7 +124,7 @@ export class ProductsListComponent implements OnInit {
     public doFilter = (value: string) => {
       // this.dataSource.filter = value.trim().toLocaleLowerCase();
       this.filteredWord = value.trim().toLocaleLowerCase()
-        this.productService.getProducts(null,null,this.filteredWord ,this.pageNumber, this.pageSize).subscribe(data=> {
+        this.productService.getProducts(null,null,this.filteredWord ,this.pagination.currentPage, this.pagination.itemsPerPage).subscribe(data=> {
         this.products = data.result;
         this.dataSource = new MatTableDataSource(this.products);
         this.pagination = data.pagination;

@@ -1,3 +1,5 @@
+import { ProductsListResolver } from './_resolvers/products-list.resolver';
+import { ProductDetailResolver } from './_resolvers/product-detail.resolver';
 import { AuthGuard } from './../../../client/src/app/_guards/auth.guard';
 import { CategoryListComponent } from './categories/category-list/category-list.component';
 import { ProductInfoComponent } from './products/product-info/product-info.component';
@@ -34,7 +36,8 @@ const routes: Routes = [
       },
       {
         path:'products', 
-        component: ProductsListComponent
+        component: ProductsListComponent,
+        resolve:{products: ProductsListResolver}
         
       },
       {
@@ -49,7 +52,8 @@ const routes: Routes = [
 
       {
         path:'products/:id',
-        component:ProductInfoComponent
+        component:ProductInfoComponent,
+        resolve:{product: ProductDetailResolver}
       },
       {
         path:'categories',

@@ -20,6 +20,7 @@ export class AllProductsSectionComponent implements OnInit {
     this.getProducts();
   }
 
+  
   getProducts(){
     this.productService.getProducts().subscribe((result)=>{
       this.products = result ;

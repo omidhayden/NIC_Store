@@ -21,34 +21,19 @@ export class ProductInfoComponent implements OnInit {
     private route:ActivatedRoute
     ) { 
       
-        route.params.subscribe(p =>{
-        this.productId = +p['id'];
-        if(isNaN(this.productId) || this.productId <=0){
-          router.navigate(['/admin/products']);
-          return;
-        }
-      });
+      
+
+
         
 
     }
 
   ngOnInit() {
-     this.productService.getProduct(this.productId)
-    .subscribe((p)=>{
-      
-      this.product = p;
-    
-    }, err =>{
-      if(err.status == 204){
-        this.router.navigate(['/admin/products']);
-        return;
-      }
+
+    this.route.data.subscribe(data => {
+      this.product = data['product']
     });
 
-
-
-
-    
   }
   
   toggleEdit(){

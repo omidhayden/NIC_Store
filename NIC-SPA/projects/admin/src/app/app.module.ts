@@ -1,3 +1,5 @@
+import { ProductsListResolver } from './_resolvers/products-list.resolver';
+import { ProductDetailResolver } from './_resolvers/product-detail.resolver';
 import { UniqueValue } from './_pipes/unique-value.pipe';
 import { ProductEditComponent } from './products/product-edit/product-edit.component';
 import { ProductAddComponent } from './products/product-add/product-add.component';
@@ -30,7 +32,7 @@ import { CategoryListComponent } from './categories/category-list/category-list.
 import {MatTableModule} from '@angular/material/table';
 import { FlexLayoutModule } from '@angular/flex-layout';
 //NPM I @angular/flex-layout
-const providers = [ProductService, CategoryService, UniqueValue]
+const providers = [ProductService, CategoryService, UniqueValue, ProductDetailResolver, ProductsListResolver] // It might conflict with client resolvers
 @NgModule({
   declarations: [
     AppComponent,
