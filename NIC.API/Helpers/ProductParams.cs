@@ -10,6 +10,11 @@ namespace NIC.API.Helpers
             get { return pageSize; }
             set { pageSize  = (value > MaxPageSize) ? MaxPageSize : value; }
         }
+
+        
+        public string Name { get; set; }
+        public string Sort { get; set; }
+        public string Dir { get; set; }
         
 
     }

@@ -1,9 +1,12 @@
+
+import { Observable } from 'rxjs';
+import { PaginatedResult } from './../_models/pagination';
 import { Product } from './../_models/product';
 import { map } from 'rxjs/operators';
 
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {HttpClient, HttpParams} from '@angular/common/http';
+
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +17,40 @@ export class ProductService {
    
   constructor(private http: HttpClient) { }
   
-  getProducts(){
-    return this.http.get('http://localhost:5000/api/product/all');
+  getProducts (sort?, dir? ,name? ,page? , itemsPerPage?):Observable<any>{
+    var paginatedResult: PaginatedResult<any> = new PaginatedResult<any>();
+    let params = new HttpParams();
+    
+    if(name != null){
+      params = params.append('name', name);
+
+    } 
+  
+
+    if(sort != null){
+      params = params.append('sort', sort);
+      params = params.append('dir', dir);
+      
+    }
+
+
+    if(page != null && itemsPerPage != null){
+      params = params.append('pageNumber', page);
+      params = params.append('pageSize', itemsPerPage);
+
+    }
+    return this.http.get('http://localhost:5000/api/product/all', { observe: 'response' , params})
+    .pipe(
+      map(response => {
+        paginatedResult.result = response.body;
+        if(response.headers.get('Pagination') != null)
+        {
+          
+          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+        }
+        return paginatedResult;
+      })
+    )
   }
 
   getProduct(id: number){

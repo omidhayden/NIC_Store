@@ -58,8 +58,43 @@ namespace NIC.API.Repository
             .Include(c => c.ProductSubCategories)
             .ThenInclude(a => a.SubCategory)
             .ThenInclude(a => a.Category)
-            .OrderByDescending(p => p.CreatedDate).AsNoTracking();
+            .OrderByDescending(p => p.CreatedDate).AsQueryable();
             
+            if(!string.IsNullOrWhiteSpace(productParams.Name))
+            {
+                products = products.Where( p => p.Name.Contains(productParams.Name));
+            }
+
+            if(!string.IsNullOrWhiteSpace(productParams.Sort))
+            {
+                switch (productParams.Sort)
+                {
+                    case "id":
+                    if(productParams.Dir == "asc") products = products.OrderBy(p => p.Id);
+                    if(productParams.Dir == "desc") products = products.OrderByDescending(p => p.Id);
+                    break;
+                    case "name":
+                    if(productParams.Dir == "asc") products = products.OrderBy(p => p.Name);
+                    if(productParams.Dir == "desc") products = products.OrderByDescending(p => p.Name);
+                    break;
+                   
+                   case "details":
+                    if(productParams.Dir == "asc") products = products.OrderBy(p => p.Details);
+                    if(productParams.Dir == "desc") products = products.OrderByDescending(p => p.Details);
+                    break;
+                    
+                    case "price":
+                    if(productParams.Dir == "asc") products = products.OrderBy(p => p.Price);
+                    if(productParams.Dir == "desc") products = products.OrderByDescending(p => p.Price);
+                    break;
+                    case "category":
+                    if(productParams.Dir == "asc") products = products.OrderBy(p => p.ProductSubCategories);
+                    if(productParams.Dir == "desc") products = products.OrderByDescending(p => p.ProductSubCategories);
+                    break;
+                }
+            }
+            
+
             return await PagedList<Product>.CreateAsync(products, productParams.PageNumber, productParams.PageSize);
         }
 

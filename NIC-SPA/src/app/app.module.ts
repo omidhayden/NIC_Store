@@ -8,6 +8,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { JwtModule } from '@auth0/angular-jwt';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 export function tokenGetter(){
@@ -33,7 +34,8 @@ export function tokenGetter(){
         whitelistedDomains:['localhost:5000'],
         blacklistedRoutes:['localhost:5000/api/auth']
       }
-    })
+    }),
+    BrowserAnimationsModule
    ],
   providers: [
     AlertifyService,

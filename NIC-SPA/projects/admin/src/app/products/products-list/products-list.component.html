@@ -1,15 +1,27 @@
 <navbar></navbar>
 <div class="admin-content-wrapper">
-    <h2>Products</h2>
-    <h5>
-      Add a new product: <button type="button" class="btn btn-success btn-sm" [routerLink]="['add']" >Add</button>
 
-    </h5>
-    <div  >
-        <mat-form-field>
-          <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
-        </mat-form-field>
-      </div>
+
+  <div class="list-header">
+
+        <h2>List of Products</h2>
+
+ 
+   
+             <button type="button" class="btn btn-success btn-sm" [routerLink]="['add']" >Add New Product</button>
+       
+
+
+    
+        <br>
+      
+       
+        <b>Search for products:   </b><mat-form-field>
+            <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter Products">
+          </mat-form-field>
+        
+      
+  </div>
     
 
 
@@ -17,7 +29,7 @@
 
 <div class="table-container">
     
-    <table  color="primary" mat-table [dataSource]="dataSource" class="mat-elevation-z8 category-table" matSort>
+    <table  color="primary" mat-table [dataSource]="dataSource" (matSortChange)="sortData($event)" class="mat-elevation-z8 category-table" matSort>
         
         <!--- Note that these columns can be defined in any order.
             The actual rendered columns are set as a property on the row definition" -->
@@ -117,14 +129,25 @@
       </table>
 
 
+
 </div>
+<div class="pagination-table">
+  <pagination [boundaryLinks]="true" [totalItems]="pagination?.totalItems"
+  [itemsPerPage]="pagination?.itemsPerPage"
+  [(ngModel)]="pagination.currentPage" 
+  (pageChanged) = "pageChanged($event)"
+  previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+  
+  </pagination>
+</div>
+
 
     
 
 
 
-
-
+  
+<!-- [(ngModel)]="pagination.currentPage" -->
 
 
 

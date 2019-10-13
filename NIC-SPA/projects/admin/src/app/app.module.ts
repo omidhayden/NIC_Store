@@ -11,6 +11,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {MatInputModule, MatFormFieldModule, MatIconModule, MatSortModule, MatPaginatorModule} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ProductsListComponent } from './products/products-list/products-list.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms'
 import {MatButtonModule} from '@angular/material/button';
@@ -65,6 +66,7 @@ const providers = [ProductService, CategoryService, UniqueValue]
     MatListModule,
     MatTableModule,
     MatSortModule,
+    PaginationModule.forRoot(),
     MatPaginatorModule
 
   ],

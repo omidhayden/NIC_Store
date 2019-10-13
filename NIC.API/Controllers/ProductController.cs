@@ -32,6 +32,7 @@ namespace NIC.API.Controllers
         [HttpGet("all")]
         public async Task<IActionResult> GetProducts([FromQuery]ProductParams productParams)
         {
+            
             var products = await _repo.GetProducts(productParams);
             
             IEnumerable<GetProductsViewModel> productToReturn = _mapper.Map<IEnumerable<GetProductsViewModel>>(products);
