@@ -55,7 +55,12 @@ namespace NIC.API.Repository
         public async Task<string> GetUserId(string username)
         {
             var user = await _userManager.FindByNameAsync(username);
-            return user.Id;
+            if(user != null)
+            {
+                return user.Id;
+            }
+            return null;
+            
             
         }
 

@@ -21,6 +21,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {RxReactiveFormsModule} from "@rxweb/reactive-form-validators";
 import { FeaturedProductsSectionComponent } from './products/featured-products-section/featured-products-section.component';
 import { AllProductsSectionComponent } from './products/all-products-section/all-products-section.component';
+import { ShoppingCartComponent } from './cart/shopping-cart/shopping-cart.component';
 
 
 const providers = []
@@ -34,7 +35,8 @@ const providers = []
     LoginComponent,
     FeaturedProductsSectionComponent,
     AllProductsSectionComponent,
-    BestDealsProductsSectionComponent
+    BestDealsProductsSectionComponent,
+    ShoppingCartComponent
   ],
   imports: [
     BrowserModule,

@@ -21,11 +21,11 @@ namespace NIC.API.Repository
 
         }
 
-          public async Task<IEnumerable<Cart_Items>> CartItems(string username)
+          public async Task<IEnumerable<Cart_Items>> CartItems(string id)
         {
             try
             {
-                var user = await _userManager.FindByNameAsync(username);
+                var user = await _userManager.FindByIdAsync(id);
                 string userId = user.Id;
                 Cart userOpenCart = await _db.Carts.FirstOrDefaultAsync(x => x.UserId == userId && x.Status =="open");
                 int specificCartId = userOpenCart.Id;
@@ -44,12 +44,12 @@ namespace NIC.API.Repository
         }
 
 
-        public async Task<bool> AddtoCart(string username, Cart cart, string productName, int quantity)
+        public async Task<bool> AddtoCart(string id, Cart cart, string productName, int quantity)
         {
             try
             {
                 
-                var user = await _userManager.FindByNameAsync(username);
+                var user = await _userManager.FindByIdAsync(id);
                 string userId = user.Id;
 
 
@@ -63,7 +63,10 @@ namespace NIC.API.Repository
 
                 Cart_Items productExistInCart = await _db.CartItems.FirstOrDefaultAsync(x => x.CartId == cartId && x.ProductId == productId);
                 if(productExistInCart != null){
-                    ++productExistInCart.Quantity;
+                    int preQuantity = productExistInCart.Quantity;
+                    int newQuantity = quantity;
+                    int updatedQ = preQuantity + newQuantity;
+                    productExistInCart.Quantity = updatedQ;
                     _db.CartItems.Update(productExistInCart);
                     return true;
                 }
@@ -88,12 +91,12 @@ namespace NIC.API.Repository
 
       
 
-        public async Task<bool> ChangeItemQuantity(string username, int productId, int quantity)
+        public async Task<bool> ChangeItemQuantity(string id, int productId, int quantity)
         {
 
             try
             {
-                var user = await _userManager.FindByNameAsync(username);
+                var user = await _userManager.FindByIdAsync(id);
             string userId = user.Id;
             Cart userOpenCart = await _db.Carts.FirstOrDefaultAsync(x => x.UserId == userId && x.Status =="open");
             int specificCartId = userOpenCart.Id;
@@ -112,11 +115,11 @@ namespace NIC.API.Repository
 
         }
 
-        public async Task<Cart> OpenCart(string username)
+        public async Task<Cart> OpenCart(string id)
         {
-            try
+            try 
             {
-                var user = await _userManager.FindByNameAsync(username);
+                var user = await _userManager.FindByIdAsync(id);
                 string userId = user.Id;
 
                 Cart userOpenCart = await _db.Carts.FirstOrDefaultAsync(x => x.UserId == userId && x.Status =="open");
@@ -141,9 +144,9 @@ namespace NIC.API.Repository
             
         }
 
-        public async Task<bool> RemoveCart(string username)
+        public async Task<bool> RemoveCart(string id)
         {
-            var user = await _userManager.FindByNameAsync(username);
+            var user = await _userManager.FindByIdAsync(id);
             string userId = user.Id;
             var cart = await _db.Carts.FirstOrDefaultAsync(x => x.UserId == userId && x.Status == "open");
              var result =_db.Carts.Remove(cart);
@@ -151,9 +154,9 @@ namespace NIC.API.Repository
              return false;
         }
 
-        public async Task<bool> RemoveCartItems(string username, int productId)
+        public async Task<bool> RemoveCartItems(string id, int productId)
         {
-            var user = await _userManager.FindByNameAsync(username);
+            var user = await _userManager.FindByIdAsync(id);
             string userId = user.Id;
 
             
