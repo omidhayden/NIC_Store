@@ -30,7 +30,13 @@ namespace NIC.API.Repository
                 Cart userOpenCart = await _db.Carts.FirstOrDefaultAsync(x => x.UserId == userId && x.Status =="open");
                 int specificCartId = userOpenCart.Id;
 
-                List<Cart_Items> cartItemsList =await _db.CartItems.Include(x =>x.Product).Where(x => x.CartId == specificCartId).ToListAsync();
+                List<Cart_Items> cartItemsList = await _db.CartItems
+                    .Include(x =>x.Product)
+                        .Where(x => x.CartId == specificCartId)
+                    .Include(x =>x.Product)    
+                    .ThenInclude(p => p.Photos)
+                    .ToListAsync();
+     
                 return cartItemsList;
             }
             catch (System.Exception)
@@ -44,8 +50,9 @@ namespace NIC.API.Repository
         }
 
 
-        public async Task<bool> AddtoCart(string id, Cart cart, string productName, int quantity)
+        public async Task<bool> AddtoCart(string id, Cart cart, int productId, int? quantity)
         {
+            int quantityValue = quantity.Value;
             try
             {
                 
@@ -53,27 +60,25 @@ namespace NIC.API.Repository
                 string userId = user.Id;
 
 
-                int productId = (from p in _db.Products
-                                    where p.Name == productName
-                                    select p.Id).FirstOrDefault();
-
-
+             
+                int P_id =  _db.Products.FirstOrDefaultAsync(p => p.Id == productId).Id;
+               
 
                 int cartId = cart.Id;
 
                 Cart_Items productExistInCart = await _db.CartItems.FirstOrDefaultAsync(x => x.CartId == cartId && x.ProductId == productId);
                 if(productExistInCart != null){
                     int preQuantity = productExistInCart.Quantity;
-                    int newQuantity = quantity;
+                    int newQuantity = quantityValue;
                     int updatedQ = preQuantity + newQuantity;
-                    productExistInCart.Quantity = updatedQ;
+                     productExistInCart.Quantity = updatedQ;
                     _db.CartItems.Update(productExistInCart);
                     return true;
                 }
                 else{
                         Cart_Items ItemsInCart = new Cart_Items();
                         ItemsInCart.CartId = cartId;
-                        ItemsInCart.Quantity = quantity;
+                        ItemsInCart.Quantity = quantityValue;
                         ItemsInCart.ProductId = productId;
                         await _db.CartItems.AddAsync(ItemsInCart);
                         return true;

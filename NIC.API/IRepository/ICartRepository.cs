@@ -7,7 +7,7 @@ namespace NIC.API.IRepository
     public interface ICartRepository 
     {
         Task<IEnumerable<Cart_Items>> CartItems(string username);
-         Task<bool> AddtoCart (string username, Cart cart, string productName, int Quantity);
+         Task<bool> AddtoCart (string username, Cart cart, int productId, int? Quantity);
          Task<Cart> OpenCart (string username);
          Task<bool> RemoveCart(string username);
          //Good Luck :)

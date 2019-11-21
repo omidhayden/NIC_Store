@@ -1,1 +1,104 @@
-<p>shopping-cart works!</p>
+<app-navbar></app-navbar>
+
+
+    <div class="cart-header">
+            <div class="page-container">
+                <h2>Shopping Cart</h2>
+            </div>
+    </div>
+    <section class="cart-body">
+    <div class="page-container">
+        <div class="cart-content">
+            <div class="cart-list-header">
+                <button mat-button class="continue-shopping button">Continue Shopping</button>
+                <div class="text-header">
+                        <p class="cart-sum">You have 1 item in your cart</p>
+                </div>
+                
+                <div class="last-button">
+                        <button mat-button class="empty-cart button">Empty Cart</button>
+                </div>
+                
+            </div>
+
+            <div class="cart-list">
+               
+
+                <div class="cart-group">
+                        <article class="cart-entry">
+                            <div class="item-result">
+                                <div class="item-result__thumbnail"><a><img src="https://s3.envato.com/files/271660069/thumb.jpg"> </a></div>
+                                <div class="item-result__details">
+                                    <div class="cart-entry__title"><h5>Enfold - Responsive Multi-Purpose Theme</h5></div>
+                                    <div class="cart-entry__category"><p>Item category</p></div>
+                                    
+                                </div>
+                                <div class="item-result__price">
+                                    <div class="cart-entry__price">
+                                        <h6 class="t-currency" style="font-size: xx-large"><b>$36</b></h6>
+                                    </div>
+                                </div>
+                            </div>
+                          
+                            <!-- <div class="item-upgrade">
+                                <form action="">
+                                    <input> <label>Extend support to 12 months.+$10</label> <span>Save $20</span>
+                                </form>
+                            </div> -->
+                            
+                        </article>
+                        
+                </div>
+                <div class="cart-group">
+                        <article class="cart-entry">
+                            <div class="item-result">
+                                <div class="item-result__thumbnail"><a><img src="https://s3.envato.com/files/271660069/thumb.jpg"> </a></div>
+                                <div class="item-result__details">
+                                    <div class="cart-entry__title"><h5>Enfold - Responsive Multi-Purpose Theme</h5></div>
+                                    <div class="cart-entry__category"><p>Item category</p></div>
+                                    
+                                </div>
+                                <div class="item-result__price">
+                                    <div class="cart-entry__price">
+                                        <h6 class="t-currency" style="font-size: xx-large"><b>$36</b></h6>
+                                    </div>
+                                </div>
+                            </div>
+                          
+                            <!-- <div class="item-upgrade">
+                                <form action="">
+                                    <input> <label>Extend support to 12 months.+$10</label> <span>Save $20</span>
+                                </form>
+                            </div> -->
+                            
+                        </article>
+                        
+                </div>
+                <footer class="cart-footer">
+                    <div class="cart-footer-subtotal">
+                            <span class="t-heading -size-s -weight-normal">Total</span>
+                            <span class="t-heading -size-l">
+                                    US<span class="js-item-upgrade__cart-total t-currency">$118</span>
+                                  </span>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        <aside class="cart-sidebar">
+                <div class="sidebar-box">
+                    <div class="checkout-primary">
+                            <h3>You Cart Total</h3>
+                            <h4 class="total-price">$32</h4>
+                            <button mat-raised-button class="checkout-button">Secure Checkout</button>
+                            <div class="notes">
+                                    <p class="checkout-first-note" style="font-weight: 300;">Price displayed exclude tax</p>
+
+                            </div>
+                            
+                    </div>
+                    
+                </div>
+        </aside>
+        
+    </div>
+</section>

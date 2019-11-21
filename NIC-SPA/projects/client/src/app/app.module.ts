@@ -1,3 +1,4 @@
+import { GetCartResolver } from './_resolvers/get-cart-resolver';
 import { BestDealsProductsSectionComponent } from './products/best-deals-products-section/best-deals-products-section.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClientRoutingModule } from './client-routing.module';
@@ -22,9 +23,10 @@ import {RxReactiveFormsModule} from "@rxweb/reactive-form-validators";
 import { FeaturedProductsSectionComponent } from './products/featured-products-section/featured-products-section.component';
 import { AllProductsSectionComponent } from './products/all-products-section/all-products-section.component';
 import { ShoppingCartComponent } from './cart/shopping-cart/shopping-cart.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
-const providers = []
+const providers = [GetCartResolver]
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,6 +46,7 @@ const providers = []
     FormsModule,
 
     //npm install @rxweb/reactive-form-validators for password validation
+    BrowserAnimationsModule,
     RxReactiveFormsModule,
     MatButtonModule,
     MatInputModule,

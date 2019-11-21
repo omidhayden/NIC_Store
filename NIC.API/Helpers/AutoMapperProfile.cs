@@ -59,8 +59,11 @@ namespace NIC.API.Mapper
 
             CreateMap<User, UserToReturnViewModel>().ReverseMap();
             CreateMap<User, UserForRegisterViewModel>().ReverseMap();
+
+
             CreateMap<CartItemsToReturnViewModel, Cart_Items>().ReverseMap()
-            .ForMember(dest => dest.productName, opt => opt.MapFrom(src => src.Product.Name));
+            .ForMember(dest => dest.productName, opt => opt.MapFrom(src => src.Product.Name))
+            .ForMember(dest => dest.photoUrl , opt => opt.MapFrom(src => src.Product.Photos.FirstOrDefault(p => p.IsMain ==true).Url));
  
 
 

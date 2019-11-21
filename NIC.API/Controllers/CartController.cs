@@ -39,57 +39,72 @@ namespace NIC.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCartItems(string id)
         {
-            if(id != User.FindFirst(ClaimTypes.NameIdentifier).Value) return Unauthorized("id and claim type not match with our records.");
-            IEnumerable<Cart_Items> ItemsInCart =await _cartRepo.CartItems(id);
-
-            if(ItemsInCart != null) 
+            try
             {
-                 var cartToReturn =  _mapper.Map<IList<CartItemsToReturnViewModel>>(ItemsInCart);
+                if (id != User.FindFirst(ClaimTypes.NameIdentifier).Value) return Unauthorized("id and claim type not match with our records.");
+            }
+            catch (System.Exception)
+            {
+
+                return Unauthorized("Token seems to be wrong");
+            }
+
+            IEnumerable<Cart_Items> ItemsInCart = await _cartRepo.CartItems(id);
+
+            if (ItemsInCart != null)
+            {
+                var cartToReturn = _mapper.Map<IList<CartItemsToReturnViewModel>>(ItemsInCart);
 
                 return Ok(cartToReturn);
             }
-            return Unauthorized();
-           
+            return BadRequest("Cart is empty");
+
 
         }
 
         [HttpPost("add")]
-        public async Task<IActionResult> AddToCart(string id, [FromForm] AddToCartViewModel addToCartVM)
+        public async Task<IActionResult> AddToCart(string id, AddToCartViewModel addToCartVM)
         {
-            
-          // Check userId with token before Getting user information
-            if(id != User.FindFirst(ClaimTypes.NameIdentifier).Value) return Unauthorized("id and claim type not match with our records.");
-            // return Ok(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            try
+            {
+                if (id != User.FindFirst(ClaimTypes.NameIdentifier).Value) return Unauthorized("id and claim type not match with our records.");
+            }
+            catch (System.Exception)
+            {
 
-          
-            // if (id != User.FindFirst(ClaimTypes.NameIdentifier).Value) return Unauthorized();
+                return Unauthorized("Token seems to be wrong");
+            }
+ 
 
 
-
-
-            // string userId = await _authRepo.GetUserId(id);
-            // if(userId ==null){
-            //     return Unauthorized();
-            // }
-           
-            
-
+            if (addToCartVM.Quantity == null)
+            {
+                addToCartVM.Quantity = 1;
+            }
             Cart cart = await _cartRepo.OpenCart(id);
-            if(cart == null) return BadRequest();
+            if (cart == null) return BadRequest();
 
-            bool AddedToCart = await _cartRepo.AddtoCart(id, cart, addToCartVM.ProductName, addToCartVM.Quantity);
+            bool AddedToCart = await _cartRepo.AddtoCart(id, cart, addToCartVM.ProductId, addToCartVM.Quantity);
             await _cartRepo.SaveAll();
 
             if (AddedToCart == false) return BadRequest();
 
-            return StatusCode(200, "Your product added successfully");
+            return Ok("{}");
 
 
         }
         [HttpDelete("remove")]
         public async Task<IActionResult> RemoveCart(string id)
         {
-            if(id != User.FindFirst(ClaimTypes.NameIdentifier).Value) return Unauthorized("id and claim type not match with our records.");
+            try
+            {
+                if (id != User.FindFirst(ClaimTypes.NameIdentifier).Value) return Unauthorized("id and claim type not match with our records.");
+            }
+            catch (System.Exception)
+            {
+
+                return Unauthorized("Token seems to be wrong");
+            }
             bool remove = await _cartRepo.RemoveCart(id);
             await _cartRepo.SaveAll();
             if (remove == true) return Ok("Cart deleted");
@@ -99,12 +114,20 @@ namespace NIC.API.Controllers
         [HttpDelete("remove/{productId}")]
         public async Task<IActionResult> RemoveItemInCart(string id, int productId)
         {
-            if(id != User.FindFirst(ClaimTypes.NameIdentifier).Value) return Unauthorized("id and claim type not match with our records.");
+            try
+            {
+                if (id != User.FindFirst(ClaimTypes.NameIdentifier).Value) return Unauthorized("id and claim type not match with our records.");
+            }
+            catch (System.Exception)
+            {
+
+                return Unauthorized("Token seems to be wrong");
+            }
             bool result = await _cartRepo.RemoveCartItems(id, productId);
             if (result == true)
             {
                 await _cartRepo.SaveAll();
-                 return RedirectToAction(nameof(GetCartItems),new {id});
+                return RedirectToAction(nameof(GetCartItems), new { id });
             }
             return Unauthorized();
         }
@@ -112,7 +135,15 @@ namespace NIC.API.Controllers
         [HttpPut("quantity")]
         public async Task<IActionResult> ChangeItemQuantity(string id, [FromForm] ChangeProductQuantityCartViewModel ChangeQuantityVM)
         {
-            if(id != User.FindFirst(ClaimTypes.NameIdentifier).Value) return Unauthorized("id and claim type not match with our records.");
+            try
+            {
+                if (id != User.FindFirst(ClaimTypes.NameIdentifier).Value) return Unauthorized("id and claim type not match with our records.");
+            }
+            catch (System.Exception)
+            {
+
+                return Unauthorized("Token seems to be wrong");
+            }
             // string userId = await _authRepo.GetUserId(username);
             // if (userId != User.FindFirst(ClaimTypes.NameIdentifier).Value) return Unauthorized();
             bool result = await _cartRepo.ChangeItemQuantity(id, ChangeQuantityVM.ProductId, ChangeQuantityVM.Quantity);
@@ -120,7 +151,7 @@ namespace NIC.API.Controllers
             {
                 await _cartRepo.SaveAll();
                 //Get cart
-                return RedirectToAction(nameof(GetCartItems),new {id});
+                return RedirectToAction(nameof(GetCartItems), new { id });
             }
             return Unauthorized();
 
