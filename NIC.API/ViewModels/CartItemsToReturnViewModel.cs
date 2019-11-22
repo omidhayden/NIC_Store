@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace NIC.API.ViewModels
@@ -10,6 +11,8 @@ namespace NIC.API.ViewModels
 
         [DataType(DataType.Currency)]
         public decimal productPrice { get; set; }
+        public IEnumerable<string> subCategoryName { get; set; }
+        public IEnumerable<string> categoryName { get; set; }
         public string photoUrl { get; set; }
 
     }

@@ -63,8 +63,9 @@ namespace NIC.API.Mapper
 
             CreateMap<CartItemsToReturnViewModel, Cart_Items>().ReverseMap()
             .ForMember(dest => dest.productName, opt => opt.MapFrom(src => src.Product.Name))
-            .ForMember(dest => dest.photoUrl , opt => opt.MapFrom(src => src.Product.Photos.FirstOrDefault(p => p.IsMain ==true).Url));
- 
+            .ForMember(dest => dest.photoUrl , opt => opt.MapFrom(src => src.Product.Photos.FirstOrDefault(p => p.IsMain ==true).Url))
+            .ForMember(dest => dest.categoryName, opt => opt.MapFrom(src => src.Product.ProductSubCategories.Select(p => p.SubCategory).Select(p=> p.Category).Select(p => p.Name).ToList()))
+            .ForMember(dest => dest.subCategoryName, opt => opt.MapFrom(src => src.Product.ProductSubCategories.Select(p => p.SubCategory).Select(p => p.Name).ToList()));
 
 
 

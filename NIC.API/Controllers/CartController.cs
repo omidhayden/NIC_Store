@@ -57,7 +57,7 @@ namespace NIC.API.Controllers
 
                 return Ok(cartToReturn);
             }
-            return BadRequest("Cart is empty");
+            return BadRequest();
 
 
         }

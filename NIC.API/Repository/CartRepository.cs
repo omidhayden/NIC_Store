@@ -31,10 +31,22 @@ namespace NIC.API.Repository
                 int specificCartId = userOpenCart.Id;
 
                 List<Cart_Items> cartItemsList = await _db.CartItems
+                
                     .Include(x =>x.Product)
                         .Where(x => x.CartId == specificCartId)
                     .Include(x =>x.Product)    
                     .ThenInclude(p => p.Photos)
+                    .Include(x => x.Product)
+                    .ThenInclude(products => products.ProductSubCategories)
+                    .ThenInclude(productSubCategories => productSubCategories.SubCategory)
+                    .ThenInclude(subCategory => subCategory.Category)
+                    
+         
+             
+                    
+
+                    
+                    
                     .ToListAsync();
      
                 return cartItemsList;
