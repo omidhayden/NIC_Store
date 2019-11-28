@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NIC.API.Db;
 
 namespace NIC.API.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191124061836_updatedCartItemsModel1")]
+    partial class updatedCartItemsModel1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -119,7 +121,7 @@ namespace NIC.API.Migrations
 
                     b.Property<int>("Quantity");
 
-                    b.Property<decimal>("TotalPrice");
+                    b.Property<int>("TotalPrice");
 
                     b.HasKey("CartId", "ProductId");
 

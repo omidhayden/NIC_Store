@@ -132,8 +132,8 @@ namespace NIC.API.Controllers
             return Unauthorized();
         }
 
-        [HttpPut("quantity")]
-        public async Task<IActionResult> ChangeItemQuantity(string id, [FromForm] ChangeProductQuantityCartViewModel ChangeQuantityVM)
+        [HttpPost("quantity")]
+        public async Task<IActionResult> ChangeItemQuantity(string id, [FromBody] ChangeProductQuantityCartViewModel ChangeQuantityVM)
         {
             try
             {

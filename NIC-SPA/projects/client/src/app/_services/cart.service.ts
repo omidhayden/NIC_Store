@@ -1,3 +1,5 @@
+import { map } from 'rxjs/operators';
+import { quantityToModify } from './../../_models/quantityToModify';
 import { addToCart } from './../../_models/addToCart';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -8,6 +10,8 @@ import { HttpClient } from '@angular/common/http';
 export class CartService {
   UrlBase= 'http://localhost:5000/api/users/';
   addToCartModel: addToCart;
+  changeQuantityModel: quantityToModify;
+  
 constructor(private http: HttpClient) { }
 
 
@@ -19,7 +23,12 @@ constructor(private http: HttpClient) { }
     return this.http.get(this.UrlBase + id + "/cart");
   }
 
-
+  changeQuantity(id, modify){
+    
+ 
+    return this.http.post(this.UrlBase + id + "/cart/quantity", modify)
+    
+  }
 
 
 

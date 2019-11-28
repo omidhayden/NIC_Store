@@ -332,3 +332,8 @@
 .cart-entry__price{
     font-size: xx-large;
 }
+
+
+mat-form-field{
+    width: 42px !important;
+}

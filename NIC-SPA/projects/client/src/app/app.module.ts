@@ -1,3 +1,4 @@
+import { MatSelectModule } from '@angular/material/select';
 import { GetCartResolver } from './_resolvers/get-cart-resolver';
 import { BestDealsProductsSectionComponent } from './products/best-deals-products-section/best-deals-products-section.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -24,6 +25,7 @@ import { FeaturedProductsSectionComponent } from './products/featured-products-s
 import { AllProductsSectionComponent } from './products/all-products-section/all-products-section.component';
 import { ShoppingCartComponent } from './cart/shopping-cart/shopping-cart.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSelect } from '@angular/material';
 
 
 const providers = [GetCartResolver]
@@ -53,7 +55,8 @@ const providers = [GetCartResolver]
     MatBadgeModule,
     MatDialogModule,
     ReactiveFormsModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSelectModule
   ],
   entryComponents:[
     LoginComponent

@@ -73,17 +73,20 @@ namespace NIC.API.Repository
 
 
              
-                int P_id =  _db.Products.FirstOrDefaultAsync(p => p.Id == productId).Id;
-               
+                Product Product =  await _db.Products.FirstOrDefaultAsync(p => p.Id == productId);
+                int p_id = Product.Id;
+                decimal p_price = Product.Price;
+
 
                 int cartId = cart.Id;
 
-                Cart_Items productExistInCart = await _db.CartItems.FirstOrDefaultAsync(x => x.CartId == cartId && x.ProductId == productId);
+                Cart_Items productExistInCart = await _db.CartItems.FirstOrDefaultAsync(x => x.CartId == cartId && x.ProductId == p_id);
                 if(productExistInCart != null){
                     int preQuantity = productExistInCart.Quantity;
                     int newQuantity = quantityValue;
                     int updatedQ = preQuantity + newQuantity;
                      productExistInCart.Quantity = updatedQ;
+                     productExistInCart.TotalPrice = p_price * updatedQ;
                     _db.CartItems.Update(productExistInCart);
                     return true;
                 }
@@ -91,7 +94,8 @@ namespace NIC.API.Repository
                         Cart_Items ItemsInCart = new Cart_Items();
                         ItemsInCart.CartId = cartId;
                         ItemsInCart.Quantity = quantityValue;
-                        ItemsInCart.ProductId = productId;
+                        ItemsInCart.ProductId = p_id;
+                        ItemsInCart.TotalPrice = p_price * quantityValue;
                         await _db.CartItems.AddAsync(ItemsInCart);
                         return true;
                 }
@@ -113,13 +117,14 @@ namespace NIC.API.Repository
 
             try
             {
-                var user = await _userManager.FindByIdAsync(id);
+            var user = await _userManager.FindByIdAsync(id);
             string userId = user.Id;
             Cart userOpenCart = await _db.Carts.FirstOrDefaultAsync(x => x.UserId == userId && x.Status =="open");
             int specificCartId = userOpenCart.Id;
-
+            decimal p_price =   _db.Products.SingleOrDefault(p => p.Id == productId).Price;
             Cart_Items productInCart = await _db.CartItems.FirstOrDefaultAsync(x => x.CartId == specificCartId && x.ProductId == productId);
              productInCart.Quantity = quantity;
+             productInCart.TotalPrice = p_price * quantity;
             var result =  _db.CartItems.Update(productInCart);
             if(result !=null) return true;
             }
