@@ -39,10 +39,10 @@ export class AllProductsSectionComponent implements OnInit {
     });
   }
 
-  addToCartButton(name){
+  addToCartButton(pId){
     // console.log(name);
       this.addToCartModel= {
-        productName : name
+        productId : pId
       }
     // console.log(this.addToCartModel.productName);
     if(this.authService.loggedIn()){

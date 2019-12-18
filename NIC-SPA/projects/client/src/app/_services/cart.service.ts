@@ -3,6 +3,7 @@ import { quantityToModify } from './../../_models/quantityToModify';
 import { addToCart } from './../../_models/addToCart';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { cartItems } from '../../_models/cartItems';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,8 @@ import { HttpClient } from '@angular/common/http';
 export class CartService {
   UrlBase= 'http://localhost:5000/api/users/';
   addToCartModel: addToCart;
-  changeQuantityModel: quantityToModify;
-  
+  CartQuantity: number;
+  cartItem: cartItems[];
 constructor(private http: HttpClient) { }
 
 
@@ -26,7 +27,8 @@ constructor(private http: HttpClient) { }
   changeQuantity(id, modify){
     
  
-    return this.http.post(this.UrlBase + id + "/cart/quantity", modify)
+    return this.http.post(this.UrlBase + id + "/cart/quantity", modify);
+
     
   }
 

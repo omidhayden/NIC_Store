@@ -1,4 +1,4 @@
 export class addToCart{
-    productName: string;
+    productId: string;
     quantity?: number;
 }

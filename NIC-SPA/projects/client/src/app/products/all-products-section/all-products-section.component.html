@@ -6,7 +6,8 @@
       
         <hr />
       
-        <div class="row">
+        <div class="row" *ngIf="products?.length > 0; else nodata">
+
             <ng-container *ngFor="let p of products; " >
                   <div class="slider_card-item for-talent for-hero-talents-slider">
                           <div class="slider_card-item_photo">
@@ -39,7 +40,7 @@
                                   ><i class="fas fa-minus fa-2x"></i
                                 ></a> -->
                     
-                                <button type="submit" (click)="addToCartButton(p.name)" mat-raised-button class="add-to-cart" color="warn">
+                                <button type="submit" (click)="addToCartButton(p.id)" mat-raised-button class="add-to-cart" color="warn">
                                   <span class="mat-button-wrapper"  >Add to Cart</span>
                                 </button>
                                 <!-- <a class="cart-plus" href="#"><i class="fas fa-plus fa-2x"></i></a> -->
@@ -50,5 +51,8 @@
             </ng-container>
           
         </div>
+        <ng-template #nodata>
+          <h3>Sorry, No product has been found.</h3>
+        </ng-template>
       </div>
       

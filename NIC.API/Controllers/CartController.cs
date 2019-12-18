@@ -65,17 +65,18 @@ namespace NIC.API.Controllers
         [HttpPost("add")]
         public async Task<IActionResult> AddToCart(string id, AddToCartViewModel addToCartVM)
         {
+
             try
             {
                 if (id != User.FindFirst(ClaimTypes.NameIdentifier).Value) return Unauthorized("id and claim type not match with our records.");
             }
             catch (System.Exception)
             {
-
-                return Unauthorized("Token seems to be wrong");
+                return Unauthorized("Token is not match with our records");
             }
- 
-
+        //Kasendra 
+        //collection id
+        //local storage
 
             if (addToCartVM.Quantity == null)
             {

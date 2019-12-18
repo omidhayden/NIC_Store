@@ -8,7 +8,7 @@ namespace NIC.API.Models
     {
 
         
-            public ICollection<UserRole> UserRoles { get; set; }
+        public ICollection<UserRole> UserRoles { get; set; }
         public ICollection<Cart> UserCarts { get; set; }
     }
 }

@@ -39,8 +39,12 @@ namespace NIC.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-
+            
+            services.Configure<CookiePolicyOptions>(options => {
+                options.CheckConsentNeeded = context => false;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+                
+            });
 
             IdentityBuilder builder = services.AddIdentityCore<User>(opt => 
             {
@@ -63,7 +67,7 @@ namespace NIC.API
             
 
             // Configure jwt authentication & Encode the key and pass into JWT TOKEN
-           
+
             
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => {
@@ -77,7 +81,8 @@ namespace NIC.API
                     };
                 });
             
-            services.AddDbContext<MyDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
+            services.AddDbContext<MyDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));  
+            services.AddDbContext<LogDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Secondary")));  
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
             .AddJsonOptions( opt => 
             {
@@ -127,7 +132,7 @@ namespace NIC.API
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 // app.UseHsts();
             }
-            
+            app.UseCookiePolicy();
             app.UseSpaStaticFiles();
             app.UseStaticFiles();
             app.UseAuthentication();
